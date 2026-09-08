@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="966" height="730" viewBox="0 0 966 730" role="img" aria-labelledby="title desc">
+  <title id="title">Git for Windows download page</title>
+  <desc id="desc">Dark Git download page showing the Windows download link and installer options.</desc>
+  <rect width="966" height="730" fill="#282828"/>
+  <g font-family="Georgia, serif" fill="#d8d8d8">
+    <text x="78" y="42" font-size="48" font-weight="bold">git</text>
+    <text x="153" y="39" font-size="20" fill="#f0f0f0">--everything-is-local</text>
+    <path d="M24 12 L48 36 L24 60 L0 36 Z" fill="#f05032" transform="translate(24 -12)"/>
+    <path d="M24 13v31M24 28l12-12M24 34l-10-10M24 44l11 11" stroke="#252525" stroke-width="4" fill="none" transform="translate(24 -12)"/>
+    <rect x="636" y="17" width="281" height="28" rx="16" fill="#292929" stroke="#777"/>
+    <circle cx="655" cy="31" r="7" fill="none" stroke="#ccc" stroke-width="3"/>
+    <path d="M660 36l6 6" stroke="#ccc" stroke-width="3"/>
+    <text x="671" y="37" font-size="14" fill="#999">Type / to search entire site...</text>
+    <g font-size="17" font-weight="bold">
+      <text x="24" y="131">About</text>
+      <text x="24" y="161">Learn</text>
+      <text x="24" y="191">Tools</text>
+      <text x="24" y="221">Reference</text>
+      <text x="24" y="251" fill="#f27a3d">Install</text>
+      <text x="24" y="281">Community</text>
+    </g>
+    <path d="M24 309h218" stroke="#aaa" stroke-width="12" stroke-dasharray="3 3"/>
+    <rect x="24" y="347" width="218" height="139" rx="3" fill="#686866"/>
+    <text x="43" y="379" font-size="14">The entire <tspan fill="#f27a3d">Pro Git book</tspan></text>
+    <text x="43" y="398" font-size="14">written by Scott Chacon and</text>
+    <text x="43" y="417" font-size="14">Ben Straub is available to <tspan fill="#f27a3d">read</tspan></text>
+    <text x="43" y="436" font-size="14"><tspan fill="#f27a3d">online for free.</tspan> Dead tree</text>
+    <text x="43" y="455" font-size="14">versions are available on</text>
+    <text x="43" y="474" font-size="14" fill="#f27a3d">Amazon.com.</text>
+  </g>
+  <rect x="262" y="70" width="702" height="660" rx="5" fill="#303030" stroke="#777"/>
+  <g font-family="Georgia, serif" fill="#e6e6e6">
+    <text x="284" y="127" font-size="40">Install</text>
+    <text x="694" y="117" font-size="12">Latest version: 2.55.0 (<tspan fill="#f27a3d">Release Notes</tspan>)</text>
+    <rect x="285" y="160" width="655" height="49" fill="#393939" stroke="#777"/>
+    <rect x="286" y="161" width="100" height="48" fill="#303030"/>
+    <text x="302" y="191" font-size="15" font-weight="bold">Windows</text>
+    <text x="404" y="191" font-size="15">macOS</text>
+    <text x="489" y="191" font-size="15">Linux</text>
+    <text x="565" y="191" font-size="15">Build from Source</text>
+    <g font-size="15">
+      <text x="302" y="242"><tspan fill="#fff" text-decoration="underline">Click here to download</tspan> the latest (2.55.0(5)) x64 version of Git for Windows. This is the</text>
+      <text x="302" y="263">most recent maintained build. It was released 19 days ago, on 2026-08-20.</text>
+      <text x="302" y="303" font-weight="bold">Other Git for Windows downloads</text>
+      <text x="302" y="329" font-weight="bold">Standalone Installer</text>
+      <text x="302" y="351" fill="#f27a3d" font-weight="bold">Git for Windows/x64 Setup.</text>
+      <text x="302" y="384" fill="#f27a3d" font-weight="bold">Git for Windows/ARM64 Setup.</text>
+      <text x="302" y="417" font-weight="bold">Portable ("thumbdrive edition")</text>
+      <text x="302" y="439" fill="#f27a3d" font-weight="bold">Git for Windows/x64 Portable.</text>
+      <text x="302" y="472" fill="#f27a3d" font-weight="bold">Git for Windows/ARM64 Portable.</text>
+      <text x="302" y="505" font-weight="bold">Using winget tool</text>
+      <text x="302" y="527">Install winget tool if you don't already have it, then type this command in command prompt or</text>
+      <text x="302" y="548">Powershell.</text>
+      <text x="302" y="570" fill="#f27a3d" font-family="monospace">winget install --id Git.Git -e --source winget</text>
+      <text x="302" y="609">The current source code release is version 2.55.0. If you want the newer version, you can build it</text>
+      <text x="302" y="630">from the source code.</text>
+      <text x="302" y="683" font-size="20" fill="#f27a3d" font-weight="bold">Now What?</text>
+      <text x="302" y="710">Now that you have downloaded Git, it's time to start using it.</text>
+    </g>
+  </g>
+</svg>

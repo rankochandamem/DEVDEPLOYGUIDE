@@ -1,0 +1,83 @@
+Step 3:
+
+How to Connect GitHub to Render
+
+1. Make sure your code is on GitHub.
+   - Open your GitHub repository.
+   - Confirm that your project files are visible.
+   - Confirm that your project includes the files needed to run it, such as package.json, requirements.txt, or a Dockerfile.
+
+2. Open Render:
+   https://render.com
+
+3. Sign up or log in.
+   - Choose Continue with GitHub if available.
+   - Authorize Render to access your GitHub account.
+
+4. Create a new service:
+   - Click New +.
+   - Select Web Service.
+   - Choose Connect a repository.
+   - Select your GitHub repository.
+
+5. Configure the service:
+   - Name: Enter a name for your application.
+   - Region: Choose a region near your users.
+   - Branch: Usually main.
+   - Runtime: Choose the language used by your project.
+   - Build Command: Enter the command that installs dependencies and builds the app.
+   - Start Command: Enter the command that starts the app.
+   - Instance Type: Choose Free if it is available for your project.
+
+Common settings:
+
+Node.js frontend or full-stack app:
+   Build Command: npm install && npm run build
+   Start Command: npm start
+
+Node.js Express app:
+   Build Command: npm install
+   Start Command: npm start
+
+Python Flask app:
+   Build Command: pip install -r requirements.txt
+   Start Command: gunicorn app:app
+
+Python Django app:
+   Build Command: pip install -r requirements.txt && python manage.py collectstatic --no-input
+   Start Command: gunicorn projectname.wsgi
+
+6. Add environment variables if your application needs them:
+   - Open the Environment Variables section in Render.
+   - Add each variable used by your local project.
+   - Do not put passwords or API keys directly in your GitHub code.
+
+7. Click Create Web Service.
+
+8. Render will automatically:
+   - Download your code from GitHub.
+   - Install the dependencies.
+   - Build the application.
+   - Start the application.
+   - Give you a public URL.
+
+9. Test the application by opening the Render URL.
+
+Updating your application:
+
+1. Make changes on your computer.
+2. Upload the changes to GitHub:
+
+   git add .
+   git commit -m "Update application"
+   git push
+
+3. Render will automatically detect the new GitHub commit and deploy the updated application.
+
+Troubleshooting:
+- Check the Deploy Logs in Render for errors.
+- Make sure the Build Command is correct.
+- Make sure the Start Command is correct.
+- Make sure the application listens on the PORT environment variable.
+- Make sure all required environment variables are added in Render.
+- Check that the correct GitHub branch is selected.

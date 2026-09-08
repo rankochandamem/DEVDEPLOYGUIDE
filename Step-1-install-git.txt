@@ -1,0 +1,39 @@
+Step 1:
+
+How to Install Git on Windows
+
+1. Open a web browser and go to:
+   https://git-scm.com/download/win
+
+2. On the download page, make sure the Windows tab is selected.
+
+3. Click the orange link that says:
+
+   Click here to download
+
+   This downloads the latest Windows x64 version. Choose this version for most
+   Windows computers.
+
+   Choose ARM64 only if your computer uses an ARM processor.
+
+4. Open the downloaded installer file.
+
+5. Follow the installation wizard:
+   - Accept the license agreement.
+   - Keep the default installation folder unless you have a reason to change it.
+   - Keep the recommended default options.
+   - Click Install.
+
+6. When the installation finishes, click Finish.
+
+7. Open PowerShell or Command Prompt.
+
+8. Verify that Git was installed by running:
+
+   git --version
+
+9. You should see a result similar to:
+
+   git version 2.55.0.windows.3
+
+Git is now installed and ready to use.

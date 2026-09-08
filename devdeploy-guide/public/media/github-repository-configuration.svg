@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="780" viewBox="0 0 768 780" role="img" aria-labelledby="title desc">
+  <title id="title">Create a new GitHub repository configuration</title>
+  <desc id="desc">GitHub repository creation form showing owner, repository name, visibility, README, gitignore, license, and create repository button.</desc>
+  <rect width="768" height="780" fill="#0d1117"/>
+  <path d="M0 3h768" stroke="#30363d"/>
+  <g font-family="Arial, sans-serif" fill="#f0f6fc">
+    <text x="58" y="42" font-size="19" font-weight="bold">Create a new repository</text>
+    <text x="58" y="66" font-size="13" fill="#8b949e">Repositories contain a project's files and version history. Have a project elsewhere? <tspan fill="#58a6ff" text-decoration="underline">Import a repository</tspan></text>
+    <text x="58" y="87" font-size="13" fill="#8b949e"><tspan font-style="italic">Required fields are marked with an asterisk (*).</tspan></text>
+    <circle cx="36" cy="131" r="14" fill="#21262d"/><text x="31" y="136" font-size="13" fill="#8b949e">1</text>
+    <text x="58" y="137" font-size="15" font-weight="bold">General</text>
+    <path d="M36 145v238" stroke="#30363d"/>
+    <text x="59" y="172" font-size="13" font-weight="bold">Owner *</text>
+    <text x="268" y="172" font-size="13" font-weight="bold">Repository name *</text>
+    <rect x="59" y="180" width="184" height="32" rx="6" fill="#21262d" stroke="#30363d"/>
+    <circle cx="82" cy="196" r="9" fill="#768390"/><text x="97" y="201" font-size="13">rankochandamem</text>
+    <text x="251" y="201" font-size="16">/</text>
+    <rect x="268" y="180" width="480" height="32" rx="6" fill="#0d1117" stroke="#1f6feb" stroke-width="2"/>
+    <text x="281" y="201" font-size="13">matc</text><path d="M281 204h31" stroke="#f85149"/>
+    <text x="268" y="230" font-size="12" fill="#3fb950">● matc is available.</text>
+    <text x="59" y="263" font-size="13" fill="#8b949e">Great repository names are short and memorable. How about <tspan fill="#3fb950" text-decoration="underline">legendary-waddle</tspan>?</text>
+    <text x="59" y="298" font-size="13" font-weight="bold">Description</text>
+    <rect x="59" y="307" width="689" height="31" rx="6" fill="#0d1117" stroke="#30363d"/>
+    <text x="59" y="360" font-size="12" fill="#8b949e">0 / 350 characters</text>
+    <circle cx="36" cy="399" r="14" fill="#21262d"/><text x="31" y="404" font-size="13" fill="#8b949e">2</text>
+    <text x="58" y="405" font-size="15" font-weight="bold">Configuration</text>
+    <path d="M36 413v286" stroke="#30363d"/>
+    <rect x="59" y="424" width="689" height="64" rx="6" fill="#0d1117" stroke="#30363d"/>
+    <text x="75" y="447" font-size="13" font-weight="bold">Choose visibility *</text>
+    <text x="75" y="470" font-size="12" fill="#8b949e">Choose who can see and commit to this repository</text>
+    <rect x="624" y="440" width="107" height="32" rx="6" fill="#21262d" stroke="#30363d"/><text x="638" y="461" font-size="13">▣ Public　⌄</text>
+    <rect x="59" y="505" width="689" height="195" rx="6" fill="#0d1117" stroke="#30363d"/>
+    <g font-size="13"><text x="75" y="535" font-weight="bold">Add README</text><text x="75" y="557" fill="#8b949e">READMEs can be used as longer descriptions.</text><text x="659" y="546" fill="#8b949e">Off　◯</text><path d="M75 569h669M75 635h669" stroke="#30363d"/><text x="75" y="601" font-weight="bold">Add .gitignore</text><text x="75" y="623" fill="#8b949e">.gitignore tells git which files not to track.</text><text x="75" y="667" font-weight="bold">Add license</text><text x="75" y="689" fill="#8b949e">Licenses explain how others can use your code.</text></g>
+    <rect x="614" y="724" width="134" height="32" rx="6" fill="#238636" stroke="#2ea043"/><text x="628" y="745" font-size="13" font-weight="bold">Create repository</text>
+  </g>
+</svg>

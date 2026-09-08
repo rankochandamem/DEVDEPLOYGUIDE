@@ -1,0 +1,108 @@
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { quickLinks } from '../data/tutorials'
+import TutorialCard from '../components/tutorial/TutorialCard'
+import { getBookmarks, getLearningPathUnlocks, readStorage, toggleBookmark } from '../services/storageService'
+import { getAllTutorials } from '../services/tutorialService'
+
+export default function HomePage() {
+  const state = readStorage()
+  const [bookmarks, setBookmarks] = useState(getBookmarks())
+  const [learningPathUnlocks] = useState(getLearningPathUnlocks())
+  const [featured] = useState(() => shuffle(getAllTutorials()).slice(0, 3))
+  const [recommended] = useState(() => shuffle(quickLinks))
+  const nextLearningStep = [
+    { slug: 'git-installation', title: 'Install Git' },
+    { slug: 'github-basics', title: 'Connect GitHub' },
+    { slug: 'render-deployment', title: 'Deploy to Render' },
+  ].find((step) => !learningPathUnlocks.includes(step.slug)) || { slug: 'render-deployment', title: 'Deploy to Render' }
+
+  const handleToggleBookmark = (tutorialId) => {
+    setBookmarks(toggleBookmark(tutorialId))
+  }
+
+  return (
+    <main className="page-shell home-page">
+      <section className="hero-section">
+        <div className="hero-copy">
+          <span className="badge">Beginner Friendly</span>
+          <h1>Learn. Build. Deploy.</h1>
+          <p>
+            Step-by-step guides for turning your code into real, deployed applications.
+          </p>
+          <div className="learning-path" aria-label="Tutorial steps">
+            <h2>Tutorial For Render Deploy</h2>
+            <div className="learning-steps">
+            <Link className="learning-step" to="/tutorials/git-installation?from=learning-path">
+              <span>Step 1</span>
+              <strong>Install Git</strong>
+            </Link>
+            <LearningStep slug="github-basics" label="Step 2" title="Connect GitHub" unlocked={learningPathUnlocks.includes('github-basics')} />
+            <LearningStep slug="render-deployment" label="Step 3" title="Deploy to Render" unlocked={learningPathUnlocks.includes('render-deployment')} />
+            </div>
+          </div>
+        </div>
+
+        <div className="pipeline-card">
+          <img className="pipeline-image" src="/media/logo1.png" alt="DevDeploy deployment pipeline" />
+        </div>
+      </section>
+
+      <section className="dashboard-grid">
+        <div className="panel">
+          <h3>Recommended Tutorials</h3>
+          <ul className="tag-list">
+            {recommended.map((item) => (
+              <li key={item.slug}><Link to={`/tutorials/${item.slug}`}>{item.title}</Link></li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="panel">
+          <h3>Bookmarks</h3>
+          <p>{bookmarks.length} saved guides</p>
+          <Link className="secondary-btn" to="/bookmarks">View Bookmarks</Link>
+        </div>
+      </section>
+
+      <section className="section-block">
+        <div className="section-heading">
+          <h2>Featured Tutorials</h2>
+        </div>
+        <div className="tutorial-grid">
+          {featured.map((tutorial) => (
+            <TutorialCard
+              key={tutorial.id}
+              tutorial={tutorial}
+              progress={state.progress?.[tutorial.id] || 0}
+              bookmarked={bookmarks.includes(tutorial.id)}
+              onToggleBookmark={handleToggleBookmark}
+            />
+          ))}
+        </div>
+      </section>
+    </main>
+  )
+}
+
+function shuffle(items) {
+  return [...items].sort(() => Math.random() - 0.5)
+}
+
+function LearningStep({ slug, label, title, unlocked }) {
+  if (!unlocked) {
+    return (
+      <div className="learning-step learning-step-locked" aria-disabled="true">
+        <span>{label}</span>
+        <strong><span aria-hidden="true">🔒</span> {title}</strong>
+      </div>
+    )
+  }
+
+  return (
+    <Link className="learning-step" to={`/tutorials/${slug}?from=learning-path`}>
+      <span>{label}</span>
+      <strong>{title}</strong>
+    </Link>
+  )
+}

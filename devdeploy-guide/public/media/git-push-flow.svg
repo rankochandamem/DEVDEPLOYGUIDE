@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Git push flow from local project to GitHub</title>
+  <desc id="desc">A four-step diagram showing git remote, git add, git commit, and git push from a local project to GitHub.</desc>
+  <rect width="1200" height="620" fill="#0f172a"/>
+  <text x="70" y="72" fill="#f8fafc" font-family="Arial, sans-serif" font-size="34" font-weight="700">Push your project to GitHub</text>
+  <text x="70" y="108" fill="#94a3b8" font-family="Arial, sans-serif" font-size="18">Connect, stage, commit, and push your local code.</text>
+  <g font-family="Arial, sans-serif">
+    <rect x="70" y="175" width="230" height="260" rx="14" fill="#1e293b" stroke="#475569"/>
+    <text x="100" y="220" fill="#38bdf8" font-size="17" font-weight="700">1. Connect</text>
+    <text x="100" y="265" fill="#f8fafc" font-family="monospace" font-size="17">git remote add</text>
+    <text x="100" y="292" fill="#f8fafc" font-family="monospace" font-size="17">origin &lt;url&gt;</text>
+    <text x="100" y="350" fill="#94a3b8" font-size="15">Link your local project</text>
+    <text x="100" y="374" fill="#94a3b8" font-size="15">to the GitHub repository.</text>
+    <rect x="340" y="175" width="230" height="260" rx="14" fill="#1e293b" stroke="#475569"/>
+    <text x="370" y="220" fill="#a78bfa" font-size="17" font-weight="700">2. Stage</text>
+    <text x="370" y="275" fill="#f8fafc" font-family="monospace" font-size="19">git add .</text>
+    <text x="370" y="350" fill="#94a3b8" font-size="15">Select the project files</text>
+    <text x="370" y="374" fill="#94a3b8" font-size="15">for the next commit.</text>
+    <rect x="610" y="175" width="230" height="260" rx="14" fill="#1e293b" stroke="#475569"/>
+    <text x="640" y="220" fill="#f59e0b" font-size="17" font-weight="700">3. Commit</text>
+    <text x="640" y="270" fill="#f8fafc" font-family="monospace" font-size="16">git commit -m</text>
+    <text x="640" y="297" fill="#f8fafc" font-family="monospace" font-size="16">&quot;Initial commit&quot;</text>
+    <text x="640" y="350" fill="#94a3b8" font-size="15">Save a version of the</text>
+    <text x="640" y="374" fill="#94a3b8" font-size="15">staged files locally.</text>
+    <rect x="880" y="175" width="250" height="260" rx="14" fill="#052e16" stroke="#22c55e"/>
+    <text x="910" y="220" fill="#4ade80" font-size="17" font-weight="700">4. Push</text>
+    <text x="910" y="275" fill="#f8fafc" font-family="monospace" font-size="19">git push -u</text>
+    <text x="910" y="302" fill="#f8fafc" font-family="monospace" font-size="19">origin main</text>
+    <text x="910" y="350" fill="#bbf7d0" font-size="15">Upload the commit to</text>
+    <text x="910" y="374" fill="#bbf7d0" font-size="15">GitHub.</text>
+  </g>
+  <g fill="none" stroke="#64748b" stroke-width="4">
+    <path d="M300 305h35"/><path d="M570 305h35"/><path d="M840 305h35"/>
+  </g>
+  <g fill="#94a3b8"><path d="M335 295l15 10-15 10z"/><path d="M605 295l15 10-15 10z"/><path d="M875 295l15 10-15 10z"/></g>
+  <rect x="70" y="505" width="1060" height="55" rx="10" fill="#111827" stroke="#334155"/>
+  <text x="100" y="540" fill="#cbd5e1" font-family="monospace" font-size="18">Local project</text>
+  <text x="505" y="540" fill="#64748b" font-family="Arial, sans-serif" font-size="18">→</text>
+  <text x="570" y="540" fill="#60a5fa" font-family="Arial, sans-serif" font-size="18" font-weight="700">GitHub repository</text>
+</svg>

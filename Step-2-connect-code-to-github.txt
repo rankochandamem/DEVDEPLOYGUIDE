@@ -1,0 +1,64 @@
+Step 2:
+
+How to Connect Your Code to GitHub
+
+1. Create a new repository on GitHub:
+   - Go to https://github.com
+   - Sign in or create an account.
+   - Click the + button in the top-right corner.
+   - Select New repository.
+   - Enter a repository name.
+   - Choose Public or Private.
+   - Do not add a README if your code already exists on your computer.
+   - Click Create repository.
+
+2. Open PowerShell or Command Prompt and go to your project folder.
+
+   Example:
+   cd "C:\path\to\your\project"
+
+3. Initialize Git in your project folder:
+
+   git init
+
+4. Add all your project files:
+
+   git add .
+
+5. Create your first commit:
+
+   git commit -m "Initial commit"
+
+6. Connect your local project to the GitHub repository.
+   Replace YOUR-USERNAME and YOUR-REPOSITORY with your GitHub details.
+
+   git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
+   
+   ex.
+   https://github.com/rankochandamem/Video-DL
+
+7. Rename the current branch to main:
+
+   git branch -M main
+
+8. Upload your code to GitHub:
+
+   git push -u origin main
+
+9. Refresh your GitHub repository page. Your code should now be visible.
+
+For future updates:
+
+   git add .
+   git commit -m "Describe your changes"
+   git push
+
+   ex.
+   git add backend/server.js
+   git commit -m "Fix Render port binding"
+   git push
+
+Important:
+- Never upload passwords, API keys, or secret files.
+- Add sensitive files to a .gitignore file before running git add .
+- GitHub may ask you to sign in through your browser when you push.
