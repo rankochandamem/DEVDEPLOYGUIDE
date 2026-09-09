@@ -21,13 +21,6 @@ export default function TutorialCard({ tutorial, progress = 0, bookmarked = fals
         <span>{tutorial.lessons} lessons</span>
       </div>
 
-      <div className="mini-progress">
-        <div className="mini-progress-bar">
-          <span style={{ width: `${progress}%` }} />
-        </div>
-        <small>{progress}% complete</small>
-      </div>
-
       <Link className="primary-btn tutorial-link" to={`/tutorials/${tutorial.slug}`}>
         Open Tutorial
       </Link>
