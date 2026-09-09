@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { quickLinks } from '../data/tutorials'
 import TutorialCard from '../components/tutorial/TutorialCard'
@@ -16,6 +16,7 @@ const downloadableGuides = [
 
 export default function HomePage() {
   const state = readStorage()
+  const audioRef = useRef(null)
   const [bookmarks, setBookmarks] = useState(getBookmarks())
   const [learningPathUnlocks] = useState(getLearningPathUnlocks())
   const [featured] = useState(() => shuffle(getAllTutorials()).slice(0, 3))
@@ -28,6 +29,19 @@ export default function HomePage() {
 
   const handleToggleBookmark = (tutorialId) => {
     setBookmarks(toggleBookmark(tutorialId))
+  }
+
+  const handlePlayVoice = async () => {
+    const audio = audioRef.current
+    if (!audio) return
+
+    audio.currentTime = 0
+
+    try {
+      await audio.play()
+    } catch (error) {
+      console.error('Failed to play voice clip:', error)
+    }
   }
 
   return (
@@ -54,7 +68,22 @@ export default function HomePage() {
         </div>
 
         <div className="pipeline-card">
-          <img className="pipeline-image" src="/media/logo1.png" alt="DevDeploy deployment pipeline" />
+          <img
+            className="pipeline-image"
+            src="/media/logo1.png"
+            alt="DevDeploy deployment pipeline"
+            onClick={handlePlayVoice}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault()
+                handlePlayVoice()
+              }
+            }}
+            style={{ cursor: 'pointer' }}
+          />
+          <audio ref={audioRef} src="/media/voice.mpeg" preload="auto" />
         </div>
       </section>
 
