@@ -96,6 +96,22 @@ export const mediaLibrary = [
       { type: 'marker', label: 'UI', x: 20, y: 20, color: '#8b5cf6' },
     ],
   },
+  {
+    id: 'devdeploy-logo-mark',
+    filename: 'logo1.png',
+    url: '/media/logo1.png',
+    altText: 'DevDeploy Guide logo mark',
+    caption: 'Figure 5 — DevDeploy Guide logo',
+    description: 'Brand logo asset used in the app header and marketing visuals.',
+    width: 1200,
+    height: 820,
+    fileSize: 'Local PNG asset',
+    tags: ['brand', 'logo', 'design'],
+    createdAt: '2026-09-08',
+    annotations: [
+      { type: 'marker', label: 'Logo', x: 22, y: 22, color: '#f97316' },
+    ],
+  },
 ]
 
 export function getMediaLibrary() {
