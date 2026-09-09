@@ -8,7 +8,10 @@ export default function Navbar({ theme, onToggleTheme, collapsed, onToggleSideba
           {mobileOpen ? '×' : '☰'}
         </button>
         <span className="mobile-brand">DEVDEPLOY GUIDE</span>
-        <button type="button" className="mobile-search-button" onClick={onToggleSearch} aria-label={mobileSearchOpen ? 'Hide search' : 'Show search'}>{mobileSearchOpen ? '×' : '⌕'}</button>
+        <button type="button" className="mobile-search-button" onClick={onToggleSearch} aria-label={mobileSearchOpen ? 'Hide search' : 'Show search'}>
+          <span className="mobile-search-icon" aria-hidden="true">⌕</span>
+          <span className="mobile-search-close" aria-hidden="true">×</span>
+        </button>
       </div>
       <div className={`mobile-nav-backdrop${mobileOpen ? ' is-open' : ''}`} onClick={onCloseMobile} aria-hidden="true" />
       <header className={`topbar${collapsed ? ' sidebar-collapsed' : ''}${mobileOpen ? ' mobile-open' : ''}`}>

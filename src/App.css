@@ -2487,6 +2487,29 @@ textarea {
 
   .content-toolbar.mobile-search-open {
     display: flex;
+    position: fixed;
+    top: var(--mobile-header-height);
+    left: 0;
+    right: 0;
+    z-index: 210;
+    padding: 0.65rem 0.75rem;
+  }
+
+  .content-toolbar.mobile-search-open .top-search-box {
+    width: 100%;
+  }
+
+  .search-panel {
+    position: fixed;
+    top: calc(var(--mobile-header-height) + 3.5rem);
+    left: 0.75rem;
+    right: 0.75rem;
+    width: auto;
+    transform: none;
+  }
+
+  .search-panel-inner {
+    max-height: min(60vh, 22rem);
   }
 
   body.nav-drawer-open {
@@ -2524,6 +2547,30 @@ textarea {
     background: var(--step-bg);
     color: var(--text-primary);
     font-size: 1.3rem;
+  }
+
+  .mobile-search-button {
+    position: relative;
+  }
+
+  .mobile-search-icon,
+  .mobile-search-close {
+    display: inline-grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .mobile-search-close {
+    display: none;
+  }
+
+  .mobile-search-button[aria-label='Hide search'] .mobile-search-icon {
+    display: none;
+  }
+
+  .mobile-search-button[aria-label='Hide search'] .mobile-search-close {
+    display: inline-grid;
   }
 
   .mobile-brand {

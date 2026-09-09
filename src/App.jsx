@@ -38,6 +38,7 @@ function App() {
     const closeOnEscape = (event) => {
       if (event.key === 'Escape') {
         setMobileNavOpen(false)
+        setMobileSearchOpen(false)
         setSearch('')
       }
     }
@@ -51,9 +52,12 @@ function App() {
 
   useEffect(() => {
     const closeSearchOnOutsideClick = (event) => {
-      const withinSearchToolbar = event.target.closest('.content-toolbar')
-      if (!withinSearchToolbar) {
+      const insideSearchToolbar = event.target.closest('.content-toolbar')
+      const insideMobileSearchButton = event.target.closest('.mobile-search-button')
+
+      if (!insideSearchToolbar && !insideMobileSearchButton) {
         setSearch('')
+        setMobileSearchOpen(false)
       }
     }
 
@@ -106,7 +110,10 @@ function App() {
                     key={`${result.type}-${result.label}`}
                     to={result.type === 'Category' ? `/${result.slug}` : `/tutorials/${result.slug}`}
                     className="search-result-item"
-                    onClick={() => setSearch('')}
+                    onClick={() => {
+                      setSearch('')
+                      setMobileSearchOpen(false)
+                    }}
                   >
                     <span>{result.type}</span>
                     <strong>{result.label}</strong>
