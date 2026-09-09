@@ -180,7 +180,22 @@ function ScrollToTop() {
   const { pathname, search } = useLocation()
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual'
+    }
+
+    const resetScroll = () => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    }
+
+    resetScroll()
+
+    const onPopState = () => {
+      window.setTimeout(resetScroll, 0)
+    }
+
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
   }, [pathname, search])
 
   return null
