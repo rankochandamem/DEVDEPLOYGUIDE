@@ -36,7 +36,10 @@ function App() {
 
   useEffect(() => {
     const closeOnEscape = (event) => {
-      if (event.key === 'Escape') setMobileNavOpen(false)
+      if (event.key === 'Escape') {
+        setMobileNavOpen(false)
+        setSearch('')
+      }
     }
     document.addEventListener('keydown', closeOnEscape)
     document.body.classList.toggle('nav-drawer-open', mobileNavOpen)
@@ -79,29 +82,29 @@ function App() {
             aria-label="Search tutorials, guides, and tools"
           />
         </div>
-      </div>
 
-      {search && (
-        <div className="search-panel">
-          <div className="search-panel-inner">
-            {searchResults.length === 0 ? (
-              <p>No matches found for “{search}”.</p>
-            ) : (
-              searchResults.map((result) => (
-                <Link
-                  key={`${result.type}-${result.label}`}
-                  to={result.type === 'Category' ? `/${result.slug}` : `/tutorials/${result.slug}`}
-                  className="search-result-item"
-                  onClick={() => setSearch('')}
-                >
-                  <span>{result.type}</span>
-                  <strong>{result.label}</strong>
-                </Link>
-              ))
-            )}
+        {search && (
+          <div className="search-panel">
+            <div className="search-panel-inner">
+              {searchResults.length === 0 ? (
+                <p>No matches found for “{search}”.</p>
+              ) : (
+                searchResults.map((result) => (
+                  <Link
+                    key={`${result.type}-${result.label}`}
+                    to={result.type === 'Category' ? `/${result.slug}` : `/tutorials/${result.slug}`}
+                    className="search-result-item"
+                    onClick={() => setSearch('')}
+                  >
+                    <span>{result.type}</span>
+                    <strong>{result.label}</strong>
+                  </Link>
+                ))
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       <Routes>
         <Route path="/" element={<HomePage />} />

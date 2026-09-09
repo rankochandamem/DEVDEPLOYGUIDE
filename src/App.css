@@ -747,24 +747,33 @@ button {
 }
 
 .search-panel {
-  position: sticky;
-  top: 4.75rem;
-  z-index: 89;
-  width: min(1200px, calc(100% - 2rem));
-  margin: 1rem auto;
+  position: absolute;
+  top: calc(100% + 0.85rem);
+  left: 50%;
+  z-index: 220;
+  width: min(780px, calc(100vw - 2rem));
+  transform: translateX(-50%);
 }
 
 .search-panel-inner {
-  max-height: min(60vh, 30rem);
+  max-height: min(70vh, 30rem);
   overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   background: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: 1rem;
   padding: 1rem;
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--shadow-soft), 0 20px 60px rgba(2, 6, 23, 0.5);
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
+  backdrop-filter: blur(12px);
+  color: var(--text-primary);
+}
+
+.search-panel-inner::-webkit-scrollbar {
+  display: none;
 }
 
 .search-result-item {
