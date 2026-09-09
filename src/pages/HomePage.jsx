@@ -44,7 +44,7 @@ export default function HomePage() {
         </div>
 
         <div className="pipeline-card">
-          <img className="pipeline-image" src="/media/logo2.png" alt="DevDeploy deployment pipeline" />
+          <img className="pipeline-image" src="/media/logo1.png" alt="DevDeploy deployment pipeline" />
         </div>
       </section>
 
