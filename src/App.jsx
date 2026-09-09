@@ -144,8 +144,35 @@ function App() {
         <Route path="*" element={<HomePage />} />
       </Routes>
 
+      <BackToTopButton />
       <footer className="page-footer">DevDeploy Guide v1.1.0</footer>
     </div>
+  )
+}
+
+function BackToTopButton() {
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setVisible(window.scrollY > 260)
+    }
+
+    handleScroll()
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  return (
+    <button
+      className={`back-to-top-button${visible ? ' visible' : ''}`}
+      type="button"
+      aria-label="Back to top"
+      data-tooltip="Back on top"
+      onClick={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}
+    >
+      <img src="/media/logo1.png" alt="" className="back-to-top-logo" />
+    </button>
   )
 }
 

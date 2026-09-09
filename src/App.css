@@ -2331,6 +2331,71 @@ textarea {
   color: #f59e0b;
 }
 
+.back-to-top-button {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 1100;
+  width: 3.4rem;
+  height: 3.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: var(--button-bg, linear-gradient(135deg, #6d5dfc, #8b5cf6));
+  color: var(--button-text, #f8fafc);
+  box-shadow: 0 14px 34px rgba(2, 6, 23, 0.35);
+  opacity: 0;
+  transform: translateY(180%);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.back-to-top-button.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.back-to-top-button img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.back-to-top-button::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  right: calc(100% + 0.85rem);
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.65rem;
+  background: var(--nav-bg, #0f172a);
+  color: var(--text-primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.back-to-top-button:hover::after,
+.back-to-top-button:focus-visible::after {
+  opacity: 1;
+}
+
+.back-to-top-button:hover,
+.back-to-top-button:focus-visible {
+  border-color: var(--accent-color, #9f7aea);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.26), 0 16px 42px rgba(2, 6, 23, 0.45);
+}
+
 .page-footer {
   text-align: center;
   color: var(--text-muted);
