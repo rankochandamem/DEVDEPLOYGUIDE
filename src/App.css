@@ -259,6 +259,32 @@ button {
   font-size: 1.2rem;
 }
 
+.page-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.8rem;
+  background: var(--step-bg);
+  color: var(--text-primary);
+  padding: 0.65rem 0.95rem;
+  font-weight: 800;
+  font-size: 0.86rem;
+  margin-left: 0.8rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+  box-shadow: var(--shadow-soft);
+}
+
+.page-back-button:hover {
+  background: var(--step-hover-bg);
+  transform: translateY(-1px);
+}
+
+.page-back-label {
+  letter-spacing: 0.03em;
+}
+
 .top-search-box input {
   flex: 1;
   min-width: 0;
@@ -796,6 +822,33 @@ button {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+}
+
+.tutorial-toolbar-top {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+.detail-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.8rem;
+  background: var(--step-bg);
+  color: var(--text-primary);
+  padding: 0.65rem 0.95rem;
+  font-weight: 800;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.detail-back-button:hover {
+  background: var(--step-hover-bg);
+  transform: translateY(-1px);
 }
 
 .tutorial-header {

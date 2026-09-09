@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Link, useLocation, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import Button from '../components/ui/Button'
 import CodeBlock from '../components/ui/CodeBlock'
 import ImageBlock from '../components/media/ImageBlock'
@@ -14,6 +14,7 @@ const learningPath = [
 ]
 
 export default function TutorialDetailPage() {
+  const navigate = useNavigate()
   const { slug } = useParams()
   const location = useLocation()
   const tutorials = getAllTutorials()
@@ -42,6 +43,13 @@ export default function TutorialDetailPage() {
 
   return (
     <main className="page-shell tutorial-detail">
+      <div className="tutorial-toolbar-top">
+        <button type="button" className="detail-back-button" onClick={() => navigate(-1)}>
+          <span aria-hidden="true">←</span>
+          <span>Back</span>
+        </button>
+      </div>
+
       <div className="tutorial-header">
         <div>
           <p className="eyebrow">{tutorial.category}</p>
