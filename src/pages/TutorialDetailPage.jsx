@@ -124,7 +124,18 @@ export default function TutorialDetailPage() {
               </ul>
             )}
             {section.commands?.map((command) => (
-              <CodeBlock key={`${section.title}-${command.code}`} title={command.label} code={command.code} language="bash" />
+              <div className="command-example" key={`${section.title}-${command.code}`}>
+                <CodeBlock title={command.label} code={command.code} language="bash" />
+                {command.explanation && (
+                  <div className="command-explanation">
+                    <strong>What happens:</strong>
+                    <p>{command.explanation}</p>
+                  </div>
+                )}
+                {command.output && (
+                  <CodeBlock title="Sample output" code={command.output} language="text" />
+                )}
+              </div>
             ))}
           </section>
         ))}

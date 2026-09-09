@@ -41,12 +41,13 @@ export const tutorialData = [
     difficulty: 'Beginner',
     estimatedTime: '10 minutes',
     lessons: 5,
-    description: 'Install Git, verify it works, and get your terminal ready for version control.',
+    description: 'Install Git, verify it works, and learn the essential Git commands used by beginners.',
     prerequisites: [],
     status: 'not-started',
     externalLinks: [
       { label: 'Git website', url: 'https://git-scm.com/' },
       { label: 'Official Git download', url: 'https://git-scm.com/download/win' },
+      { label: 'GitHub', url: 'https://github.com' },
     ],
     sections: [
       {
@@ -54,6 +55,7 @@ export const tutorialData = [
         content: [
           'Open your browser and go to the official Git download page for Windows.',
           'Most computers should use the Windows x64 installer.',
+          'Git is the local version-control tool. GitHub is a remote platform where you can store and share your Git repositories.',
         ],
         links: [
           { label: 'Open the official Git download page for Windows', url: 'https://git-scm.com/download/win' },
@@ -75,7 +77,8 @@ export const tutorialData = [
           {
             label: 'PowerShell',
             code: 'git --version',
-            explanation: 'Verifies that Git is installed and available in your terminal.',
+            explanation: 'Verifies that Git is installed and available in your terminal. If Git is found, your terminal prints a version string such as the same version shown below.',
+            output: 'git version 2.49.0.windows.1',
           },
         ],
         checklist: ['Open the Git for Windows installer', 'Choose the correct version', 'Finish the setup wizard'],
@@ -98,17 +101,324 @@ export const tutorialData = [
           {
             label: 'PowerShell',
             code: 'git --version',
-            explanation: 'Shows the installed version of Git.',
+            explanation: 'Shows the installed version of Git. The version line confirms Git is available in the terminal and on your PATH.',
+            output: 'git version 2.49.0.windows.1',
+          },
+        ],
+      },
+      {
+        title: '1. Start a Repository',
+        content: [
+          'These commands are used when starting a new Git project or downloading an existing repository.',
+          'The first command creates a local Git repository. The second copies a remote repository from GitHub to your computer.',
+        ],
+        commands: [
+          {
+            label: 'PowerShell',
+            code: 'git init',
+            explanation: 'Creates a hidden .git folder inside your project and starts tracking the project with Git.',
+            output: 'Initialized empty Git repository in C:/Users/username/Projects/my-app/.git/',
+          },
+          {
+            label: 'PowerShell',
+            code: 'git clone https://github.com/username/my-project.git',
+            explanation: 'Downloads a copy of an existing repository from GitHub to your computer.',
+            output: 'Cloning into \'my-project\'...\nremote: Enumerating objects: 45, done.\nremote: Counting objects: 100% (45/45), done.\nReceiving objects: 100% (45/45), 12.40 KiB | 2.06 MiB/s, done.',
+          },
+        ],
+      },
+      {
+        title: 'git init',
+        content: [
+          'Creates a hidden .git folder inside your project and starts tracking the project with Git.',
+          'Git creates a .git directory to store internal repository information. Your files are not automatically committed.',
+        ],
+        commands: [
+          {
+            label: 'PowerShell',
+            code: 'git init',
+            explanation: 'Creates a new repository in the current folder.',
+            output: 'Initialized empty Git repository in C:/Users/username/Projects/my-app/.git/',
+          },
+        ],
+      },
+      {
+        title: 'git clone',
+        content: [
+          'Downloads a copy of an existing remote Git repository to your computer.',
+          'The command creates a local folder, downloads all the project files, and configures the remote repository as origin.',
+        ],
+        commands: [
+          {
+            label: 'PowerShell',
+            code: 'git clone https://github.com/username/my-project.git',
+            explanation: 'Clones a repository from GitHub into a local folder on your machine.',
+            output: 'Cloning into \'my-project\'...\nremote: Enumerating objects: 45, done.\nremote: Counting objects: 100% (45/45), done.\nReceiving objects: 100% (45/45), 12.40 KiB | 2.06 MiB/s, done.',
+          },
+        ],
+      },
+      {
+        title: '2. Make and Track Changes',
+        content: [
+          'The basic Git workflow is: edit files, check status, add files, commit changes, and optionally push to GitHub.',
+        ],
+        commands: [
+          {
+            label: 'PowerShell',
+            code: 'git status',
+            explanation: 'Shows the current state of your working directory and tells you which files are untracked, modified, or staged.',
+            output: 'On branch main\nUntracked files:\n  (use "git add <file>..." to include in what will be committed)\n    index.html\n\nnothing added to commit but untracked files present (use "git add" to track)',
+          },
+          {
+            label: 'PowerShell',
+            code: 'git add .',
+            explanation: 'Stages all changes in the current directory for the next commit.',
+            output: 'On branch main\nChanges to be committed:\n  (use "git rm --cached <file>..." to unstage)\n    new file:   index.html',
+          },
+          {
+            label: 'PowerShell',
+            code: 'git commit -m "Initial commit"',
+            explanation: 'Saves the staged changes into the local repository history.',
+            output: '[main (root-commit) a1b2c3d] Initial commit\n 1 file changed, 12 insertions(+)\n create mode 100644 index.html',
+          },
+        ],
+      },
+      {
+        title: 'git status',
+        content: [
+          'Shows the current state of your working directory and tells you which files are untracked, modified, or staged.',
+          'A safe command to run any time before you stage or commit.',
+        ],
+        commands: [
+          {
+            label: 'PowerShell',
+            code: 'git status',
+            explanation: 'Shows repository status. Example output: On branch main, Untracked files: index.html, nothing added to commit but untracked files present.',
+            output: 'On branch main\nUntracked files:\n  (use "git add <file>..." to include in what will be committed)\n    index.html\n\nnothing added to commit but untracked files present (use "git add" to track)',
+          },
+        ],
+      },
+      {
+        title: 'git add',
+        content: [
+          'Git add places files into the staging area. The files are not permanently saved until you create a commit.',
+        ],
+        commands: [
+          {
+            label: 'PowerShell',
+            code: 'git add .',
+            explanation: 'Stages every changed or new file in the current folder.',
+            output: 'On branch main\nChanges to be committed:\n  (use "git rm --cached <file>..." to unstage)\n    new file:   index.html',
+          },
+        ],
+      },
+      {
+        title: 'git commit',
+        content: [
+          'Saves your staged changes into Git history as a new commit snapshot.',
+          'Git commit only saves changes that have already been staged.',
+        ],
+        commands: [
+          {
+            label: 'PowerShell',
+            code: 'git commit -m "Initial commit"',
+            explanation: 'Creates a Git commit with a descriptive message.',
+            output: '[main (root-commit) a1b2c3d] Initial commit\n 1 file changed, 12 insertions(+)\n create mode 100644 index.html',
+          },
+        ],
+      },
+      {
+        title: '3. Share and Update Code',
+        content: [
+          'These commands connect your local repository to GitHub and synchronize changes between your computer and the remote GitHub repository.',
+        ],
+        commands: [
+          {
+            label: 'PowerShell',
+            code: 'git remote add origin https://github.com/username/my-project.git',
+            explanation: 'Connects your local repository to a remote GitHub repository.',
+            output: 'Command executed successfully.\nNo output is normal.',
+          },
+          {
+            label: 'PowerShell',
+            code: 'git push -u origin main',
+            explanation: 'Uploads your commits to GitHub and sets the upstream branch reference.',
+            output: 'Enumerating objects: 3, done.\nCounting objects: 100% (3/3), done.\nDelta compression using up to 8 threads\nWriting objects: 100% (3/3), 280 bytes | 280.00 KiB/s, done.\nTotal 3 (delta 0), reused 0 (delta 0), pack-reused 0\nTo https://github.com\n * [new branch]      main -> main\nbranch \'main\' set up to track \'origin/main\'.',
+          },
+          {
+            label: 'PowerShell',
+            code: 'git pull',
+            explanation: 'Downloads changes from the remote repository and integrates them into your current local branch.',
+            output: 'remote: Enumerating objects: 5, done.\nremote: Counting objects: 100% (5/5), done.\nUnpacking objects: 100% (3/3), 680 bytes | 680.00 KiB/s, done.\nFrom https://github.com\n   a1b2c3d..e5f6g7h  main       -> origin/main\nUpdating a1b2c3d..e5f6g7h\nFast-forward\n readme.md | 2 +-\n 1 file changed, 1 insertion(+), 1 deletion(-)',
+          },
+        ],
+      },
+      {
+        title: 'git remote add origin',
+        content: [
+          'Connects your local Git repository to a remote repository such as GitHub.',
+          'On success, this command normally produces no terminal output.',
+        ],
+        commands: [
+          {
+            label: 'PowerShell',
+            code: 'git remote add origin https://github.com/username/my-project.git',
+            explanation: 'Creates the origin remote and points it at a GitHub repository.',
+            output: 'Command executed successfully.\nNo output is normal.',
+          },
+        ],
+      },
+      {
+        title: 'git push -u origin main',
+        content: [
+          'Uploads your local commits to GitHub. The -u flag sets upstream tracking so that future git push and git pull commands know where to send and fetch changes.',
+        ],
+        commands: [
+          {
+            label: 'PowerShell',
+            code: 'git push -u origin main',
+            explanation: 'Pushes the current branch to the main branch on the origin remote.',
+            output: 'Enumerating objects: 3, done.\nCounting objects: 100% (3/3), done.\nDelta compression using up to 8 threads\nWriting objects: 100% (3/3), 280 bytes | 280.00 KiB/s, done.\nTotal 3 (delta 0), reused 0 (delta 0), pack-reused 0\nTo https://github.com\n * [new branch]      main -> main\nbranch \'main\' set up to track \'origin/main\'.',
+          },
+        ],
+      },
+      {
+        title: 'git pull',
+        content: [
+          'Downloads changes from the remote repository and integrates them into your current local branch.',
+          'If both your local and GitHub repository have conflicting changes, git pull may produce a merge conflict that must be resolved manually.',
+        ],
+        commands: [
+          {
+            label: 'PowerShell',
+            code: 'git pull',
+            explanation: 'Fetches and merges changes from the configured upstream remote.',
+            output: 'remote: Enumerating objects: 5, done.\nremote: Counting objects: 100% (5/5), done.\nUnpacking objects: 100% (3/3), 680 bytes | 680.00 KiB/s, done.\nFrom https://github.com\n   a1b2c3d..e5f6g7h  main       -> origin/main\nUpdating a1b2c3d..e5f6g7h\nFast-forward\n readme.md | 2 +-\n 1 file changed, 1 insertion(+), 1 deletion(-)',
+          },
+        ],
+      },
+      {
+        title: '4. Review History',
+        content: [
+          'These commands help developers inspect previous commits and compare the current working copy against the latest saved version.',
+        ],
+        commands: [
+          {
+            label: 'PowerShell',
+            code: 'git log --oneline',
+            explanation: 'Shows a compact list of previous commits in the repository history.',
+            output: 'e5f6g7h (HEAD -> main, origin/main) Update readme layout\nc3d4e5f Fix styling issues on landing page\na1b2c3d Initial commit',
+          },
+          {
+            label: 'PowerShell',
+            code: 'git diff',
+            explanation: 'Shows the exact line-by-line changes in your working files before they are staged.',
+            output: 'diff --git a/index.html b/index.html\nindex 1234567..89abcdef 100644\n--- a/index.html\n+++ b/index.html\n@@ -4,5 +4,5 @@\n <body>\n-    <h1>Hello World</h1>\n+    <h1>Hello GitHub!</h1>\n </body>\n </html>',
+          },
+        ],
+      },
+      {
+        title: 'git log --oneline',
+        content: [
+          'Shows a compact list of previous commits. Think of each commit as a saved checkpoint for your project.',
+        ],
+        commands: [
+          {
+            label: 'PowerShell',
+            code: 'git log --oneline',
+            explanation: 'Lists recent commits in a short one-line format.',
+            output: 'e5f6g7h (HEAD -> main, origin/main) Update readme layout\nc3d4e5f Fix styling issues on landing page\na1b2c3d Initial commit',
+          },
+        ],
+      },
+      {
+        title: 'git diff',
+        content: [
+          'Shows the exact line-by-line changes in your working files before they are staged.',
+          'Use git diff when you want to review your changes before running git add.',
+        ],
+        commands: [
+          {
+            label: 'PowerShell',
+            code: 'git diff',
+            explanation: 'Shows unstaged changes using the Unified Diff format.',
+            output: 'diff --git a/index.html b/index.html\nindex 1234567..89abcdef 100644\n--- a/index.html\n+++ b/index.html\n@@ -4,5 +4,5 @@\n <body>\n-    <h1>Hello World</h1>\n+    <h1>Hello GitHub!</h1>\n </body>\n </html>',
+          },
+        ],
+      },
+      {
+        title: 'Your First Git Workflow',
+        content: [
+          'Create Project → git init → Create/Edit Files → git status → git add . → git commit -m "Initial commit" → git remote add origin <url> → git push -u origin main → GitHub',
+        ],
+        commands: [
+          {
+            label: 'Workflow',
+            code: 'git init\ngit status\ngit add .\ngit commit -m "Initial commit"\ngit remote add origin https://github.com/username/my-project.git\ngit push -u origin main',
+            explanation: 'This workflow is the common sequence beginners follow when creating and sending a repository to GitHub.',
+          },
+        ],
+      },
+      {
+        title: 'Common Git Problems',
+        content: [
+          'Git can sometimes report error messages that look confusing. Read the message carefully, then run a safe command such as git status, git remote -v, or git pull origin main.',
+        ],
+        commands: [
+          {
+            label: 'PowerShell',
+            code: 'fatal: not a git repository',
+            explanation: 'A common error that appears when a command is run outside a repository folder.',
+          },
+          {
+            label: 'PowerShell',
+            code: 'git remote -v',
+            explanation: 'Shows the configured remote repository URLs for the current repository.',
+          },
+          {
+            label: 'PowerShell',
+            code: 'git remote set-url origin https://github.com/username/my-project.git',
+            explanation: 'If the origin remote already exists, update the URL instead of adding a second remote named origin.',
+          },
+          {
+            label: 'PowerShell',
+            code: 'git pull origin main\ngit push origin main',
+            explanation: 'A typical safe workflow for repositories that need to sync remote commits before pushing.',
           },
         ],
       },
     ],
-    tips: ['Most regular Intel and AMD Windows PCs use x64.', 'Choose ARM64 only if your PC uses ARM architecture.'],
-    warnings: ['Do not confuse Git with GitHub. Git is the local tool; GitHub is the online hosting platform.'],
+    tips: [
+      'Most regular Intel and AMD Windows PCs use x64.',
+      'Choose ARM64 only if your PC uses ARM architecture.',
+      'git status is one of the safest commands to run at any time.',
+      'git add does not save your project permanently. It stages changes for the next commit.',
+      'git commit saves a snapshot to your local Git history.',
+      'git push sends your committed changes to the remote repository.',
+      'git pull brings remote changes down to your local computer.',
+    ],
+    warnings: [
+      'Do not confuse Git with GitHub. Git is the local tool; GitHub is the online hosting platform.',
+      'Git commit only saves changes that have already been staged.',
+      'If both your local computer and GitHub contain conflicting changes, git pull may result in a merge conflict.',
+      'Do not upload passwords, API keys, or secret files to GitHub.',
+    ],
     troubleshooting: [
       {
         title: "'git' is not recognized",
         solution: 'Restart your terminal or reinstall Git and verify it is on PATH.',
+      },
+      {
+        title: 'fatal: not a git repository',
+        solution: 'Change directory into the project folder that contains the .git folder or run git init there.',
+      },
+      {
+        title: 'remote origin already exists',
+        solution: 'Run git remote -v to see the current origin URL and use git remote set-url origin <repository-url> if you need to update it.',
+      },
+      {
+        title: 'rejected ... fetch first',
+        solution: 'Pull the current remote branch first with git pull origin main, then resolve any conflicts and push again.',
       },
     ],
   },
