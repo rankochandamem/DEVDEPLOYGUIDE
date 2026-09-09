@@ -7,7 +7,9 @@ export default function Navbar({ theme, onToggleTheme, collapsed, onToggleSideba
         <button type="button" className="mobile-menu-toggle" onClick={onToggleMobile} aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={mobileOpen}>
           {mobileOpen ? '×' : '☰'}
         </button>
-        <span className="mobile-brand">DEVDEPLOY GUIDE</span>
+        <NavLink className="mobile-brand" to="/" aria-label="Go to DevDeploy Guide home">
+          DEVDEPLOY GUIDE
+        </NavLink>
         <button type="button" className="mobile-search-button" onClick={onToggleSearch} aria-label={mobileSearchOpen ? 'Hide search' : 'Show search'}>
           <span className="mobile-search-icon" aria-hidden="true">⌕</span>
           <span className="mobile-search-close" aria-hidden="true">×</span>

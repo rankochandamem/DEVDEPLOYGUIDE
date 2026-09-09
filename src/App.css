@@ -2837,14 +2837,25 @@ textarea {
   }
 
   .mobile-brand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     min-width: 0;
     overflow: hidden;
     color: var(--text-primary);
     font-size: 0.9rem;
     font-weight: 800;
     letter-spacing: 0.04em;
+    text-decoration: none;
     text-overflow: ellipsis;
     white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-brand:hover,
+  .mobile-brand:focus-visible {
+    color: var(--text-primary);
+    text-decoration: none;
   }
 
   .topbar,
