@@ -49,6 +49,18 @@ function App() {
     }
   }, [mobileNavOpen])
 
+  useEffect(() => {
+    const closeSearchOnOutsideClick = (event) => {
+      const withinSearchToolbar = event.target.closest('.content-toolbar')
+      if (!withinSearchToolbar) {
+        setSearch('')
+      }
+    }
+
+    document.addEventListener('click', closeSearchOnOutsideClick)
+    return () => document.removeEventListener('click', closeSearchOnOutsideClick)
+  }, [])
+
   const searchResults = useMemo(() => searchContent(search), [search])
 
   return (
