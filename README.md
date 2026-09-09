@@ -116,6 +116,55 @@ git remote add origin https://github.com/username/my-project.git
 git push -u origin main
 ```
 
+## Troubleshooting
+
+If your local branch and GitHub remote branch have diverged, the push may be rejected because your local `main` is behind the remote version of `main`.
+
+### Command
+
+```sh
+git fetch origin
+git switch main
+git pull --rebase origin main
+git push origin main
+```
+
+### What this does
+
+- `git fetch origin` downloads the latest remote branch information.
+- `git switch main` moves you onto the current main branch.
+- `git pull --rebase origin main` replays your local commits on top of the latest remote branch history.
+- `git push origin main` sends the rebased branch back to GitHub.
+
+### Sample output
+
+```text
+On branch main
+Your branch and 'origin/main' have diverged,
+and have 3 and 1 different commits each, respectively.
+
+nothing to commit, working tree clean
+To https://github.com/username/DEVDEPLOYGUIDE.git
+ ! [rejected]        main -> main (non-fast-forward)
+error: failed to push some refs to 'https://github.com/username/DEVDEPLOYGUIDE.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. If you want to integrate the remote changes,
+hint: use 'git pull' before pushing again.
+```
+
+If conflicts appear during the rebase, open the file, resolve the conflict, then run:
+
+```sh
+git add <resolved-file>
+git rebase --continue
+```
+
+If you need to cancel the rebase:
+
+```sh
+git rebase --abort
+```
+
 ## Notes
 
 This project is a guided educational UI rather than a production deployment template. Commands and output samples are documentation examples and may vary depending on Git version, OS, and repository state.
