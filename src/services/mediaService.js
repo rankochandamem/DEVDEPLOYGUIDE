@@ -82,8 +82,8 @@ export const mediaLibrary = [
   },
   {
     id: 'screenshot-dashboard',
-    filename: 'logo1.png',
-    url: '/media/logo1.png',
+    filename: 'logo2.png',
+    url: '/media/logo2.png',
     altText: 'DevDeploy Guide screenshot preview',
     caption: 'Figure 4 — DevDeploy Guide visual',
     description: 'Brand and interface preview image for the app layout.',

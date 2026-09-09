@@ -23,7 +23,7 @@ export default function Navbar({ theme, onToggleTheme, collapsed, onToggleSideba
             aria-label={collapsed ? 'Open sidebar' : 'Close sidebar'}
             data-tooltip={collapsed ? 'Open sidebar' : 'Close sidebar'}
           >
-            <img src="/media/logo1.png" alt="DevDeploy Guide logo" />
+            <img src="/media/logo2.png" alt="DevDeploy Guide logo" />
           </button>
           <div className="brand-copy">
             <p className="eyebrow">Developer guide</p>

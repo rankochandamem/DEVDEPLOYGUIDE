@@ -171,7 +171,7 @@ function BackToTopButton() {
       data-tooltip="Back on top"
       onClick={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}
     >
-      <img src="/media/logo1.png" alt="" className="back-to-top-logo" />
+      <img src="/media/logo2.png" alt="" className="back-to-top-logo" />
     </button>
   )
 }
