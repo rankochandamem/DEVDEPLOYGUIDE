@@ -4,6 +4,15 @@ import { quickLinks } from '../data/tutorials'
 import TutorialCard from '../components/tutorial/TutorialCard'
 import { getBookmarks, getLearningPathUnlocks, readStorage, toggleBookmark } from '../services/storageService'
 import { getAllTutorials } from '../services/tutorialService'
+import stepOneGuide from '../../Step-1-install-git.txt?raw'
+import stepTwoGuide from '../../Step-2-connect-code-to-github.txt?raw'
+import stepThreeGuide from '../../Step-3-connect-github-to-render.txt?raw'
+
+const downloadableGuides = [
+  { fileName: 'Step-1-install-git.txt', content: stepOneGuide },
+  { fileName: 'Step-2-connect-code-to-github.txt', content: stepTwoGuide },
+  { fileName: 'Step-3-connect-github-to-render.txt', content: stepThreeGuide },
+]
 
 export default function HomePage() {
   const state = readStorage()
@@ -40,6 +49,7 @@ export default function HomePage() {
             <LearningStep slug="github-basics" label="Step 2" title="Connect GitHub" unlocked={learningPathUnlocks.includes('github-basics')} />
             <LearningStep slug="render-deployment" label="Step 3" title="Deploy to Render" unlocked={learningPathUnlocks.includes('render-deployment')} />
             </div>
+            <DownloadableGuides />
           </div>
         </div>
 
@@ -87,6 +97,47 @@ export default function HomePage() {
 
 function shuffle(items) {
   return [...items].sort(() => Math.random() - 0.5)
+}
+
+function DownloadableGuides() {
+  const [previewGuide, setPreviewGuide] = useState(null)
+
+  return (
+    <div className="download-guides">
+      <h3>Download the guides</h3>
+      <div className="download-guide-list">
+        {downloadableGuides.map((guide) => (
+          <div className="download-guide-row" key={guide.fileName}>
+            <span className="download-guide-name">{guide.fileName}</span>
+            <div className="download-guide-actions">
+              <a
+                className="download-guide-button"
+                href={`data:text/plain;charset=utf-8,${encodeURIComponent(guide.content)}`}
+                download={guide.fileName}
+              >
+                Download
+              </a>
+              <button className="download-guide-button preview-button" type="button" onClick={() => setPreviewGuide(guide)}>
+                Preview
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {previewGuide && (
+        <div className="text-preview-backdrop" role="presentation" onClick={() => setPreviewGuide(null)}>
+          <section className="text-preview-dialog" role="dialog" aria-modal="true" aria-labelledby="text-preview-title" onClick={(event) => event.stopPropagation()}>
+            <div className="text-preview-header">
+              <h3 id="text-preview-title">{previewGuide.fileName}</h3>
+              <button className="text-preview-close" type="button" aria-label="Close preview" onClick={() => setPreviewGuide(null)}>×</button>
+            </div>
+            <pre>{previewGuide.content}</pre>
+          </section>
+        </div>
+      )}
+    </div>
+  )
 }
 
 function LearningStep({ slug, label, title, unlocked }) {

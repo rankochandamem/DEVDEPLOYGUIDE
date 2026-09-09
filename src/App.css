@@ -491,6 +491,138 @@ button {
   gap: 0.35rem;
 }
 
+.download-guides {
+  margin-top: 1rem;
+  max-width: 760px;
+}
+
+.download-guides h3 {
+  margin: 0 0 0.55rem;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.download-guide-list {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.download-guide-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 0.55rem;
+  background: var(--step-bg);
+}
+
+.download-guide-name {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--text-primary);
+  font-size: 0.82rem;
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.download-guide-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0.4rem;
+}
+
+.download-guide-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid rgba(139, 92, 246, 0.45);
+  border-radius: 0.45rem;
+  background: #8b5cf6;
+  color: #fff;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.download-guide-button:hover,
+.download-guide-button:focus-visible {
+  background: #7c3aed;
+}
+
+.preview-button {
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.preview-button:hover,
+.preview-button:focus-visible {
+  color: #fff;
+}
+
+.text-preview-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(2, 6, 23, 0.72);
+}
+
+.text-preview-dialog {
+  display: flex;
+  flex-direction: column;
+  width: min(760px, 100%);
+  max-height: min(720px, 90vh);
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 0.8rem;
+  background: var(--card-bg);
+  box-shadow: 0 24px 70px rgba(2, 6, 23, 0.45);
+}
+
+.text-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.text-preview-header h3 {
+  margin: 0;
+  overflow: hidden;
+  font-size: 0.95rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-preview-close {
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 0.4rem;
+  background: rgba(148, 163, 184, 0.14);
+  color: var(--text-primary);
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.text-preview-dialog pre {
+  margin: 0;
+  overflow: auto;
+  padding: 1rem;
+  color: var(--text-primary);
+  font: 0.82rem/1.6 ui-monospace, SFMono-Regular, Consolas, monospace;
+  white-space: pre-wrap;
+}
+
 .pipeline-card {
   display: flex;
   align-items: center;
@@ -2533,6 +2665,19 @@ textarea {
 
   .learning-steps {
     grid-template-columns: 1fr;
+  }
+
+  .download-guide-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .download-guide-actions {
+    width: 100%;
+  }
+
+  .download-guide-button {
+    flex: 1;
   }
 }
 
