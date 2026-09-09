@@ -16,10 +16,6 @@ export default function TutorialCard({ tutorial, progress = 0, bookmarked = fals
         <p>{tutorial.description}</p>
       </div>
 
-      <div className="tutorial-card-image">
-        <img className="tutorial-card-logo" src="/media/logo2.png" alt="" />
-      </div>
-
       <div className="tutorial-meta">
         <span>{tutorial.estimatedTime}</span>
         <span>{tutorial.lessons} lessons</span>
