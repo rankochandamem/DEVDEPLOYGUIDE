@@ -80,6 +80,7 @@ function App() {
         onCloseMobile={() => setMobileNavOpen(false)}
         mobileSearchOpen={mobileSearchOpen}
         onToggleSearch={() => {
+          setMobileNavOpen(false)
           setMobileSearchOpen((current) => !current)
           if (!mobileSearchOpen) {
             requestAnimationFrame(() => document.querySelector('.top-search-box input')?.focus())
