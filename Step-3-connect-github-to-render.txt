@@ -2,10 +2,10 @@ Step 3:
 
 How to Connect GitHub to Render
 
-1. Make sure your code is on GitHub.
+1. Confirm that your project is already on GitHub.
    - Open your GitHub repository.
-   - Confirm that your project files are visible.
-   - Confirm that your project includes the files needed to run it, such as package.json, requirements.txt, or a Dockerfile.
+   - Make sure the code files are visible.
+   - Make sure your repository includes the files Render needs to build and run the app, such as package.json, requirements.txt, or a Dockerfile.
 
 2. Open Render:
    https://render.com
@@ -16,20 +16,20 @@ How to Connect GitHub to Render
 
 4. Create a new service:
    - Click New +.
-   - Select Web Service.
-   - Choose Connect a repository.
-   - Select your GitHub repository.
+   - Choose Web Service.
+   - Select Connect a repository.
+   - Pick your GitHub repository.
 
-5. Configure the service:
-   - Name: Enter a name for your application.
-   - Region: Choose a region near your users.
-   - Branch: Usually main.
-   - Runtime: Choose the language used by your project.
-   - Build Command: Enter the command that installs dependencies and builds the app.
-   - Start Command: Enter the command that starts the app.
-   - Instance Type: Choose Free if it is available for your project.
+5. Configure the Render service:
+   - Name: choose a service name.
+   - Region: choose a deployment region close to your users.
+   - Branch: usually main.
+   - Runtime: choose the language or framework used by your project.
+   - Build Command: tell Render how to install dependencies and build the app.
+   - Start Command: tell Render how to run the app.
+   - Instance Type: choose Free when available.
 
-Common settings:
+Common examples:
 
 Node.js frontend or full-stack app:
    Build Command: npm install && npm run build
@@ -47,35 +47,35 @@ Python Django app:
    Build Command: pip install -r requirements.txt && python manage.py collectstatic --no-input
    Start Command: gunicorn projectname.wsgi
 
-6. Add environment variables if your application needs them:
+6. Add environment variables if the app needs them.
    - Open the Environment Variables section in Render.
-   - Add each variable used by your local project.
-   - Do not put passwords or API keys directly in your GitHub code.
+   - Add variables the app uses locally.
+   - Do not commit private passwords or API keys into your GitHub repository.
 
 7. Click Create Web Service.
 
 8. Render will automatically:
-   - Download your code from GitHub.
-   - Install the dependencies.
+   - Clone your code from GitHub.
+   - Install dependencies.
    - Build the application.
    - Start the application.
-   - Give you a public URL.
+   - Give you a live public URL.
 
-9. Test the application by opening the Render URL.
+9. Test the deployed app by opening the Render URL.
 
-Updating your application:
+When you update the project:
 
-1. Make changes on your computer.
+1. Make changes locally.
 2. Upload the changes to GitHub:
 
    git add .
    git commit -m "Update application"
    git push
 
-3. Render will automatically detect the new GitHub commit and deploy the updated application.
+3. Render automatically detects the new commit and deploys the update.
 
 Troubleshooting:
-- Check the Deploy Logs in Render for errors.
+- Check the deploy logs in Render.
 - Make sure the Build Command is correct.
 - Make sure the Start Command is correct.
 - Make sure the application listens on the PORT environment variable.
