@@ -1,12 +1,52 @@
 import { useState } from 'react'
 import { explainError, getErrorHistory, saveErrorHistory } from '../services/errorService'
 
+const errorExamples = [
+  'Failed to resolve import "./components/Navbar" from "src/App.jsx"',
+  'Error: Invalid hook call. Hooks can only be called inside of the body of a function component.',
+  'Warning: Each child in a list should have a unique "key" prop.',
+  'Warning: Can\'t perform a React state update on an unmounted component.',
+  'RENDER LOOP DETECTED. useEffect(() => { setProjects(loadProjects()) })',
+  'DOMException: Failed to execute setItem on Storage. QuotaExceededError.',
+  'DEVDEPLOY STORAGE ERROR: Unexpected end of JSON input',
+  'API REQUEST FAILED: GET /api/projects Status: 503 Retry attempt: 17 / 999',
+  'HTTP 401 Unauthorized. Error: TOKEN_EXPIRED',
+  'Authentication Error. JsonWebTokenError: invalid signature',
+  'HTTP 429 Too Many Requests. Retry-After: 42 seconds',
+  'MIGRATION FAILED. relation "users" does not exist',
+  'ERROR: duplicate key value violates unique constraint "users_email_key"',
+  'ERROR: insert or update on table "projects" violates foreign key constraint "projects_user_id_fkey"',
+  'TRANSACTION FAILED. duplicate key value violates unique constraint',
+  'ERROR: Unsupported Node.js version. Required: Node >= 20.0.0 Detected: Node v18.19.1',
+  'npm error ERESOLVE unable to resolve dependency tree. Peer dependency react@"^18.0.0"',
+  'TS2322: Type number is not assignable to type string.',
+  'npm run lint: no-unused-vars and missing useEffect dependency warning',
+  'VITE ENVIRONMENT ERROR. Client-side environment variables must use the VITE_ prefix.',
+  'CONFIGURATION ERROR. Production variables are missing.',
+  'HTTP 404 for https://example.com/dashboard because client-side routing needs a fallback.',
+  'MIXED CONTENT BLOCKED. HTTPS page tried to load insecure HTTP API.',
+  'WebSocket connection failed. Unexpected response code: 502.',
+  'BUILD FAILED: JavaScript heap out of memory.',
+  'ERROR: EACCES Permission denied: C:\\Projects\\devdeploy\\node_modules',
+  'Build Error. Module not found: ./Components/Header.jsx',
+  'MODULE DEPENDENCY ERROR. Circular dependency detected.',
+  'PERFORMANCE WARNING. DeploymentSimulator created 1,284 active timers.',
+  'DEPLOYMENT HEALTH CHECK FAILED. GET /health timed out after 30 seconds.',
+  'npm error Missing script: "server". Available scripts: dev build preview',
+  'HEAD detached at a8f31c2',
+  'git rebase main. CONFLICT (content): src/components/Dashboard.jsx',
+  'git push origin main. assets/demo-video.mp4 is 157.4 MB and exceeds repository file size limit.',
+  'DEPLOYMENT ROLLBACK. Health check failed after deployment.',
+  'CRITICAL DEPLOYMENT ERROR. Build passed, health check failed, DATABASE_TIMEOUT after 30 seconds.',
+]
+
 export default function ErrorLabPage() {
   const [input, setInput] = useState('npm ERR! code ENOENT')
   const [result, setResult] = useState(() => explainError('npm ERR! code ENOENT'))
   const [history, setHistory] = useState(() => getErrorHistory())
   const [copied, setCopied] = useState(false)
   const [copiedDiagnosis, setCopiedDiagnosis] = useState(false)
+  const [examples] = useState(() => pickRandomExamples(errorExamples, 5))
 
   const handleExplain = () => {
     const response = explainError(input)
@@ -38,8 +78,6 @@ export default function ErrorLabPage() {
     setInput(entry.message)
     setResult(explainError(entry.message))
   }
-
-  const examples = ['npm ERR! code ENOENT', 'error: failed to push some refs; rejected', 'Render build failed']
 
   return (
     <main className="page-shell">
@@ -120,4 +158,9 @@ export default function ErrorLabPage() {
       </section>
     </main>
   )
+}
+
+function pickRandomExamples(items, count) {
+  const shuffled = [...items].sort(() => Math.random() - 0.5)
+  return shuffled.slice(0, count)
 }
