@@ -15,7 +15,7 @@ export const categories = [
     id: 'deployment',
     name: 'Deployment',
     description: 'Host and publish your apps on real platforms.',
-    tutorials: ['render-deployment', 'vercel-deployment', 'netlify-deployment'],
+    tutorials: ['render-deployment', 'vercel-deployment', 'netlify-deployment', 'advanced-deployment-strategies'],
   },
   {
     id: 'database',
@@ -600,6 +600,126 @@ export const tutorialData = [
       {
         title: 'Render build failed',
         solution: 'Review the deploy logs and confirm the build command, runtime, and dependencies are correct.',
+      },
+    ],
+  },
+  {
+    id: 'advanced-deployment-strategies',
+    slug: 'advanced-deployment-strategies',
+    title: 'Advanced Deployment Strategies & GitOps',
+    category: 'Deployment',
+    categoryId: 'deployment',
+    difficulty: 'Advanced',
+    estimatedTime: '45 minutes',
+    lessons: 7,
+    description: 'Design zero-downtime deployment flows with Blue-Green and Canary release patterns, GitOps workflows, rollback automation, observability, and security hardening.',
+    prerequisites: ['render-deployment', 'docker-deployment', 'github-actions'],
+    status: 'not-started',
+    externalLinks: [
+      { label: 'AWS Elastic Load Balancing', url: 'https://aws.amazon.com/elasticloadbalancing/' },
+      { label: 'Nginx load balancer', url: 'https://nginx.org/en/docs/http/load_balancing.html' },
+      { label: 'GitHub Actions', url: 'https://github.com/features/actions' },
+      { label: 'Argo CD', url: 'https://argo-cd.readthedocs.io/' },
+      { label: 'Prometheus', url: 'https://prometheus.io/' },
+      { label: 'Grafana', url: 'https://grafana.com/' },
+      { label: 'Trivy', url: 'https://trivy.dev/' },
+    ],
+    sections: [
+      {
+        title: 'Modern deployment strategies',
+        content: [
+          'Blue-Green deployment keeps two production-quality environments available at the same time. Traffic moves from the current healthy environment to a new version after health checks finish successfully.',
+          'Canary deployment sends a small percentage of traffic to the new version first, then increases traffic gradually as metrics and latency remain healthy.',
+        ],
+        checklist: ['Create a production-safe target environment', 'Keep the old version running for quick rollback', 'Route a small traffic slice before full release', 'Add automated health checks to every release'],
+      },
+      {
+        title: 'Blue-Green with AWS ALB or Nginx',
+        content: [
+          'Create a new release environment, build and test it, then move traffic with an application load balancer or reverse proxy. Nginx can shift load using upstream groups and weighted configuration.',
+          'Use a health endpoint to confirm the target environment is serving traffic before changing the router configuration.',
+        ],
+        commands: [
+          {
+            label: 'Nginx upstream example',
+            code: 'upstream app_blue { server 10.0.0.11:3000; }\nupstream app_green { server 10.0.0.12:3000; }\n\nserver {\n  listen 80;\n  location / {\n    proxy_pass http://app_blue;\n  }\n}',
+            explanation: 'Starts with a stable upstream target and lets you switch traffic policies safely as a release moves to a new environment.',
+          },
+          {
+            label: 'AWS ALB routing pattern',
+            code: 'aws elbv2 modify-listener --listener-arn arn:aws:elasticloadbalancing:region:account:listener/app/app/123 --default-actions Type=forward,TargetGroupArn=arn:aws:elasticloadbalancing:region:account:targetgroup/green-targets/456',
+            explanation: 'Moves the production traffic listener from the current target group to a green deployment target group.',
+          },
+        ],
+      },
+      {
+        title: 'Canary release traffic shifting',
+        content: [
+          'Route a small percentage of production traffic to the new version, collect health metrics, and increase the slice only after the release remains healthy.',
+          'A common pattern is 5% to 10% of traffic first, then 50%, then 100% only when the metrics remain stable.',
+        ],
+        commands: [
+          {
+            label: 'Example traffic split',
+            code: 'traffic: 5% -> canary\ntraffic: 25% -> canary\ntraffic: 100% -> canary',
+            explanation: 'Shows a gradual canary release path that reduces the blast radius of a new deployment.',
+          },
+        ],
+      },
+      {
+        title: 'GitHub Actions and GitLab CI/CD rollback flows',
+        content: [
+          'Create workflows that install dependencies, run lint and test stages, build application artifacts, deploy, and call a health endpoint.',
+          'When the health check fails, the workflow should run a rollback step or trigger a deployment rollback command before the failed release reaches more users.',
+        ],
+        commands: [
+          {
+            label: 'GitHub Actions example',
+            code: 'name: deploy\non:\n  push:\n    branches: [main]\njobs:\n  deploy:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - run: npm ci\n      - run: npm run build\n      - run: npm run test\n      - run: curl -f https://your-app.example.com/health || exit 1\n      - name: Rollback on failure\n        if: failure()\n        run: echo "Trigger rollback workflow"',
+            explanation: 'Shows a deployment workflow with a health gate and an automatic rollback trigger when the app fails the health check.',
+          },
+          {
+            label: 'GitLab CI example',
+            code: 'deploy:\n  stage: deploy\n  script:\n    - npm ci\n    - npm run build\n    - npm run deploy\n  after_script:\n    - curl -f https://your-app.example.com/health || ./rollback.sh',
+            explanation: 'Creates a GitLab CI deploy job that performs a rollback command if the health endpoint fails after deployment.',
+          },
+        ],
+      },
+      {
+        title: 'GitOps with Argo CD and Kubernetes',
+        content: [
+          'GitOps means the Git repository is the source of truth for infrastructure and application deployment state. A GitOps controller such as Argo CD watches the repository and applies changes to a Kubernetes cluster.',
+          'Start by defining app manifests, image tags, service selectors, and health checks inside Git. Then let the deployment system watch and enforce the desired state.',
+        ],
+        checklist: ['Keep manifests in Git', 'Use branches or tags for releases', 'Review a diff before deployment', 'Add health checks and readiness probes', 'Use a rollback commit when necessary'],
+      },
+      {
+        title: 'Day 2 operations: observability and monitoring',
+        content: [
+          'Post-deployment, collect structured JSON logs, metrics, and traces. Use Prometheus for scraping metrics, Grafana for dashboards, and Loki for log aggregation.',
+          'Create SLOs such as response latency, error rate, uptime, and deployment duration. Review alerts before a production incident occurs.',
+        ],
+        checklist: ['Add Prometheus scrape targets', 'Create Grafana dashboards', 'Send JSON logs with request IDs', 'Store logs in Loki or a log backend', 'Configure alerts for failure thresholds'],
+      },
+      {
+        title: 'Security hardening and secrets',
+        content: [
+          'Store secrets in a managed secret vault such as HashiCorp Vault or AWS Secrets Manager instead of storing them in code or YAML files.',
+          'Scan container images and dependency files with Trivy or Grype before production promotion. Rotate keys and use least-privilege identity policies.',
+        ],
+        checklist: ['Move secrets out of Git', 'Use a vault or cloud secret manager', 'Scan images before deploy', 'Verify CVEs and package versions', 'Add container image signing when needed'],
+      },
+    ],
+    tips: ['Keep health probes simple and testable before production release.', 'Blue-Green and Canary strategies work best when traffic routing, environment variables, and database migrations are versioned and documented.'],
+    warnings: ['Do not store production secrets in GitHub Actions YAML or repository source files.', 'A database migration must be reversible or guarded before a zero-downtime release.'],
+    troubleshooting: [
+      {
+        title: 'Health check fails after deployment',
+        solution: 'Make the health endpoint return a fast HTTP 200 or 204 response, confirm the application has started, inspect log output, and roll back the deployment if the new version cannot serve traffic.',
+      },
+      {
+        title: 'Rollback did not clear the release',
+        solution: 'Keep the previous environment or image version ready, verify the load balancer or ingress target group points back to the stable version, and confirm the GitOps or CI workflow selected the correct tag.',
       },
     ],
   },
