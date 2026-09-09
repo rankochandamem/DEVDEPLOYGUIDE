@@ -21,7 +21,16 @@ export const categories = [
     id: 'database',
     name: 'Databases',
     description: 'Database setup, connection strings, and deployment basics.',
-    tutorials: ['postgresql-setup'],
+    tutorials: [
+      'sqlite-setup',
+      'duckdb-setup',
+      'h2-database-setup',
+      'mysql-setup',
+      'sql-server-setup',
+      'mongodb-setup',
+      'redis-setup',
+      'postgresql-setup',
+    ],
   },
   {
     id: 'devops',
@@ -411,14 +420,20 @@ export const tutorialData = [
       {
         title: 'fatal: not a git repository',
         solution: 'Change directory into the project folder that contains the .git folder or run git init there.',
+        command: 'cd path/to/your/project\ngit init',
+        output: 'Initialized empty Git repository in C:/Users/username/Projects/my-app/.git/',
       },
       {
         title: 'remote origin already exists',
         solution: 'Run git remote -v to see the current origin URL and use git remote set-url origin <repository-url> if you need to update it.',
+        command: 'git remote -v\ngit remote set-url origin https://github.com/username/my-project.git',
+        output: 'origin https://github.com/username/my-project.git (fetch)\norigin https://github.com/username/my-project.git (push)',
       },
       {
         title: 'rejected ... fetch first',
         solution: 'Pull the current remote branch first with git pull origin main, then resolve any conflicts and push again.',
+        command: 'git pull --rebase origin main\ngit push origin main',
+        output: 'To https://github.com/username/DEVDEPLOYGUIDE.git\n ! [rejected]        main -> main (non-fast-forward)\nerror: failed to push some refs to \'https://github.com/username/DEVDEPLOYGUIDE.git\'\nhint: Updates were rejected because the tip of your current branch is behind\nhint: its remote counterpart. If you want to integrate the remote changes,\nhint: use \'git pull\' before pushing again.',
       },
     ],
   },

@@ -41,6 +41,18 @@ export default function TroubleshootingPage() {
                 <button type="button" className="secondary-btn" onClick={() => setSelectedIssue(null)}>Close</button>
               </div>
               <p><strong>Recommended solution:</strong> {selectedIssue.solution}</p>
+              {selectedIssue.command && (
+                <>
+                  <h4>Command</h4>
+                  <pre className="troubleshooting-command"><code>{selectedIssue.command}</code></pre>
+                </>
+              )}
+              {selectedIssue.output && (
+                <>
+                  <h4>Sample output</h4>
+                  <pre className="troubleshooting-output"><code>{selectedIssue.output}</code></pre>
+                </>
+              )}
               <h4>What to check</h4>
               <ol>
                 <li>Read the complete error message and note the command or page that triggered it.</li>
