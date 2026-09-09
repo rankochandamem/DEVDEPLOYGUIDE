@@ -3,10 +3,10 @@ const STORAGE_KEY = 'devdeploy-guide-state';
 export function readStorage() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
-    return raw ? JSON.parse(raw) : { progress: {}, bookmarks: [], notes: {}, theme: 'light' }
+    return raw ? JSON.parse(raw) : { progress: {}, bookmarks: [], notes: {}, theme: 'dark' }
   } catch (error) {
     console.warn('Storage unavailable', error)
-    return { progress: {}, bookmarks: [], notes: {}, theme: 'light' }
+    return { progress: {}, bookmarks: [], notes: {}, theme: 'dark' }
   }
 }
 

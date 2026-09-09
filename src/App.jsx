@@ -20,7 +20,7 @@ import { readStorage, writeStorage } from './services/storageService'
 import { searchContent } from './services/searchService'
 
 function App() {
-  const initialTheme = readStorage().theme || 'light'
+  const initialTheme = readStorage().theme || 'dark'
   const [theme, setTheme] = useState(initialTheme)
   const [search, setSearch] = useState('')
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
