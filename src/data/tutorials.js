@@ -521,6 +521,10 @@ export const tutorialData = [
         title: 'Remote origin already exists',
         solution: 'Use git remote -v to check current remotes and remove the incorrect one before re-adding it.',
       },
+      {
+        title: 'git push rejected because the remote is ahead',
+        solution: 'The local branch is behind the remote branch. Run git pull --rebase origin main or git pull origin main, resolve any conflicts, and then run git push -u origin main again. Example output: "To https://github.com/username/DEVDEPLOYGUIDE.git\n ! [rejected] main -> main (non-fast-forward)\nerror: failed to push some refs\nhint: Updates were rejected because the tip of your current branch is behind its remote counterpart."',
+      },
     ],
   },
   {
