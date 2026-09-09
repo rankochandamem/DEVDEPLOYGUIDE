@@ -46,12 +46,22 @@ export default function ErrorLabPage() {
   const [history, setHistory] = useState(() => getErrorHistory())
   const [copied, setCopied] = useState(false)
   const [copiedDiagnosis, setCopiedDiagnosis] = useState(false)
+  const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [examples] = useState(() => pickRandomExamples(errorExamples, 5))
 
   const handleExplain = () => {
-    const response = explainError(input)
-    setResult(response)
-    setHistory(saveErrorHistory({ title: response.title, message: input, solved: true }))
+    if (!input.trim() || isAnalyzing) {
+      return
+    }
+
+    setIsAnalyzing(true)
+
+    window.setTimeout(() => {
+      const response = explainError(input)
+      setResult(response)
+      setHistory(saveErrorHistory({ title: response.title, message: input, solved: true }))
+      setIsAnalyzing(false)
+    }, 320)
   }
 
   const handleCopyCommands = async () => {
@@ -107,7 +117,9 @@ export default function ErrorLabPage() {
             {examples.map((example) => <button type="button" key={example} onClick={() => setInput(example)}>{example}</button>)}
           </div>
           <div className="notes-actions">
-            <button type="button" className="primary-btn" onClick={handleExplain} disabled={!input.trim()}>Explain Error</button>
+            <button type="button" className="primary-btn" onClick={handleExplain} disabled={!input.trim() || isAnalyzing}>
+              {isAnalyzing ? 'Analyzing...' : 'Explain Error'}
+            </button>
             <button type="button" className="secondary-btn" onClick={handleCopyDiagnosis}>{copiedDiagnosis ? 'Copied' : 'Copy diagnosis'}</button>
           </div>
         </div>
