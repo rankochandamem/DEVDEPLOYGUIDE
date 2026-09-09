@@ -652,6 +652,9 @@ button {
   object-fit: cover;
   border-radius: 0.8rem;
   border: 1px solid rgba(148, 163, 184, 0.12);
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .dashboard-grid,
