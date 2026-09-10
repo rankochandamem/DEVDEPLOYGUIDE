@@ -398,6 +398,14 @@ button {
   font-size: 1.2rem;
 }
 
+:root:not([data-theme='dark']) .topbar {
+  background: rgba(255, 255, 255, 0.68);
+}
+
+:root:not([data-theme='dark']) .top-search-box {
+  background: rgba(255, 255, 255, 0.62);
+}
+
 .page-back-button {
   display: inline-flex;
   align-items: center;
@@ -813,6 +821,8 @@ button {
 }
 
 .pipeline-card {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -825,7 +835,20 @@ button {
   min-width: min(280px, 100%);
 }
 
+.pipeline-card::before {
+  position: absolute;
+  inset: 0.8rem;
+  border-radius: 1rem;
+  background: url('/media/logo1.png') center / cover no-repeat;
+  content: '';
+  filter: blur(24px) saturate(125%);
+  opacity: 0.55;
+  transform: scale(1.08);
+}
+
 .pipeline-image {
+  position: relative;
+  z-index: 1;
   display: block;
   width: min(100%, 680px);
   max-height: 360px;
@@ -1310,6 +1333,11 @@ button {
   display: none;
 }
 
+:root:not([data-theme='dark']) .search-panel-inner {
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: var(--shadow-soft), 0 20px 60px rgba(15, 23, 42, 0.2);
+}
+
 .search-section-group {
   display: flex;
   flex-direction: column;
@@ -1382,6 +1410,21 @@ button {
 .search-history-remove:hover {
   border-color: rgba(248, 113, 113, 0.5);
   color: #fca5a5;
+}
+
+:root:not([data-theme='dark']) .search-history-remove {
+  border-color: rgba(100, 116, 139, 0.35);
+  background: rgba(255, 255, 255, 0.7);
+  color: #475569;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.1);
+}
+
+:root:not([data-theme='dark']) .search-history-remove:hover,
+:root:not([data-theme='dark']) .search-history-remove:focus-visible {
+  border-color: rgba(220, 38, 38, 0.55);
+  background: rgba(254, 226, 226, 0.9);
+  color: #b91c1c;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
 }
 
 .search-suggestion {
