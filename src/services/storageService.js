@@ -62,3 +62,21 @@ export function saveNote(tutorialId, text) {
 export function getNote(tutorialId) {
   return readStorage().notes?.[tutorialId] || ''
 }
+
+export function getRecentSearches() {
+  return readStorage().recentSearches || []
+}
+
+export function saveRecentSearch(term) {
+  const value = String(term || '').trim()
+  if (!value) {
+    return getRecentSearches()
+  }
+
+  const state = readStorage()
+  const existing = state.recentSearches || []
+  const updated = [value, ...existing.filter((item) => item.toLowerCase() !== value.toLowerCase())].slice(0, 6)
+  state.recentSearches = updated
+  writeStorage(state)
+  return updated
+}

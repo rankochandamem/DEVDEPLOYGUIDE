@@ -1,5 +1,5 @@
-import { Link, Route, Routes, useLocation } from 'react-router-dom'
-import { useEffect, useMemo, useState } from 'react'
+import { Link, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
 import Navbar from './components/layout/Navbar'
 import HomePage from './pages/HomePage'
@@ -17,14 +17,27 @@ import ToolsPage from './pages/ToolsPage'
 import ImageLibraryPage from './pages/ImageLibraryPage'
 import ReportsPage from './pages/ReportsPage'
 import TutorialBuilderPage from './pages/TutorialBuilderPage'
-import { readStorage, writeStorage } from './services/storageService'
+import { getRecentSearches, readStorage, saveRecentSearch, writeStorage } from './services/storageService'
 import { searchContent } from './services/searchService'
 
+const POPULAR_SEARCHES = [
+  { type: 'Tutorial', label: 'Install Git on Windows', slug: 'git-installation', path: '/tutorials/git-installation' },
+  { type: 'Tutorial', label: 'GitHub basics', slug: 'github-basics', path: '/tutorials/github-basics' },
+  { type: 'Tutorial', label: 'Deploy to Render', slug: 'render-deployment', path: '/tutorials/render-deployment' },
+  { type: 'Category', label: 'Git & Version Control', slug: 'categories/git', path: '/categories/git' },
+  { type: 'Category', label: 'Deployment', slug: 'categories/deployment', path: '/categories/deployment' },
+  { type: 'Page', label: 'Image Library', slug: 'image-library', path: '/image-library' },
+]
+
 function App() {
+  const navigate = useNavigate()
   const { pathname } = useLocation()
   const initialTheme = readStorage().theme || 'dark'
   const [theme, setTheme] = useState(initialTheme)
   const [search, setSearch] = useState('')
+  const [searchFocused, setSearchFocused] = useState(false)
+  const [recentSearches, setRecentSearches] = useState(() => getRecentSearches())
+  const blurTimerRef = useRef(null)
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false)
@@ -56,6 +69,7 @@ function App() {
         setMobileNavOpen(false)
         setMobileSearchOpen(false)
         setSearch('')
+        setSearchFocused(false)
       }
     }
     document.addEventListener('keydown', closeOnEscape)
@@ -74,6 +88,7 @@ function App() {
       if (!insideSearchToolbar && !insideMobileSearchButton) {
         setSearch('')
         setMobileSearchOpen(false)
+        setSearchFocused(false)
       }
     }
 
@@ -82,6 +97,86 @@ function App() {
   }, [])
 
   const searchResults = useMemo(() => searchContent(search), [search])
+  const searchSuggestions = useMemo(() => {
+    const normalizedTerm = search.trim().toLowerCase()
+    const dynamicResults = normalizedTerm ? searchContent(normalizedTerm) : []
+    const allSuggestions = [...dynamicResults, ...POPULAR_SEARCHES]
+    const deduped = [...new Map(allSuggestions.map((item) => [item.label.toLowerCase(), item])).values()]
+
+    const filteredSuggestions = deduped.filter((result) => {
+      if (!normalizedTerm) return true
+      return result.label.toLowerCase().includes(normalizedTerm)
+    })
+
+    const randomizedSuggestions = [...filteredSuggestions]
+    for (let index = randomizedSuggestions.length - 1; index > 0; index -= 1) {
+      const randomIndex = Math.floor(Math.random() * (index + 1))
+      ;[randomizedSuggestions[index], randomizedSuggestions[randomIndex]] = [randomizedSuggestions[randomIndex], randomizedSuggestions[index]]
+    }
+
+    return randomizedSuggestions.slice(0, 6)
+  }, [search, recentSearches, searchFocused])
+
+  const applySearchTerm = (term, result) => {
+    const nextTerm = String(term || '').trim()
+    if (!nextTerm) {
+      return
+    }
+
+    const matchedResult = result || searchContent(nextTerm)[0]
+
+    setRecentSearches(saveRecentSearch(nextTerm))
+
+    if (matchedResult?.path) {
+      setSearch('')
+      setSearchFocused(false)
+      setMobileSearchOpen(false)
+      navigate(matchedResult.path)
+      return
+    }
+
+    if (matchedResult?.slug) {
+      const target = matchedResult.type === 'Category' ? `/${matchedResult.slug}` : `/tutorials/${matchedResult.slug}`
+      setSearch('')
+      setSearchFocused(false)
+      setMobileSearchOpen(false)
+      navigate(target)
+      return
+    }
+
+    setSearch(nextTerm)
+  }
+
+  const clearBlurTimer = () => {
+    if (blurTimerRef.current) {
+      window.clearTimeout(blurTimerRef.current)
+      blurTimerRef.current = null
+    }
+  }
+
+  const keepSearchOpen = () => {
+    clearBlurTimer()
+    setSearchFocused(true)
+    requestAnimationFrame(() => document.querySelector('.top-search-box input')?.focus())
+  }
+
+  const clearRecentSearches = () => {
+    keepSearchOpen()
+    const state = readStorage()
+    state.recentSearches = []
+    writeStorage(state)
+    setRecentSearches([])
+  }
+
+  const removeRecentSearch = (term) => {
+    keepSearchOpen()
+    const nextSearches = (getRecentSearches() || []).filter((item) => item.toLowerCase() !== String(term).toLowerCase())
+    const state = readStorage()
+    state.recentSearches = nextSearches
+    writeStorage(state)
+    setRecentSearches(nextSearches)
+  }
+
   const isNotFoundPage = !isKnownRoute(pathname)
 
   return (
@@ -112,32 +207,142 @@ function App() {
           <input
             type="search"
             value={search}
-            onChange={(event) => setSearch(event.target.value)}
+            onFocus={() => {
+              clearBlurTimer()
+              setSearchFocused(true)
+            }}
+            onBlur={(event) => {
+              const nextFocusTarget = event.relatedTarget
+              if (nextFocusTarget && nextFocusTarget.closest('.content-toolbar')) {
+                return
+              }
+              blurTimerRef.current = window.setTimeout(() => setSearchFocused(false), 120)
+            }}
+            onChange={(event) => {
+              clearBlurTimer()
+              setSearch(event.target.value)
+              setSearchFocused(true)
+            }}
             placeholder="Search tutorials, guides, and tools..."
             aria-label="Search tutorials, guides, and tools"
           />
         </div>
 
-        {search && (
+        {searchFocused && (search || recentSearches.length > 0 || searchSuggestions.length > 0) && (
           <div className="search-panel">
             <div className="search-panel-inner">
-              {searchResults.length === 0 ? (
-                <p>No matches found for “{search}”.</p>
-              ) : (
-                searchResults.map((result) => (
-                  <Link
-                    key={`${result.type}-${result.label}`}
-                    to={result.type === 'Category' ? `/${result.slug}` : `/tutorials/${result.slug}`}
-                    className="search-result-item"
-                    onClick={() => {
-                      setSearch('')
-                      setMobileSearchOpen(false)
-                    }}
-                  >
-                    <span>{result.type}</span>
-                    <strong>{result.label}</strong>
-                  </Link>
-                ))
+              {!search && (
+                <>
+                  {recentSearches.length > 0 && (
+                    <div className="search-section-group">
+                      <div className="search-history-header">
+                        <p className="search-section-label">Recent searches</p>
+                        <button
+                          type="button"
+                          className="search-history-clear"
+                          onMouseDown={(event) => {
+                            event.preventDefault()
+                            event.stopPropagation()
+                            keepSearchOpen()
+                          }}
+                          onClick={(event) => {
+                            event.stopPropagation()
+                            clearRecentSearches()
+                          }}
+                        >
+                          Clear
+                        </button>
+                      </div>
+                      <div className="search-suggestion-list">
+                        {recentSearches.map((term) => (
+                          <div key={`recent-${term}`} className="search-history-item">
+                            <button
+                              type="button"
+                              className="search-suggestion"
+                              onClick={() => {
+                                const match = searchContent(term).find((result) => result.label.toLowerCase() === term.toLowerCase()) || searchContent(term)[0]
+                                applySearchTerm(term, match)
+                              }}
+                            >
+                              {term}
+                            </button>
+                            <button
+                              type="button"
+                              className="search-history-remove"
+                              aria-label={`Remove ${term}`}
+                              onMouseDown={(event) => {
+                                event.preventDefault()
+                                event.stopPropagation()
+                                keepSearchOpen()
+                              }}
+                              onClick={(event) => {
+                                event.stopPropagation()
+                                removeRecentSearch(term)
+                              }}
+                            >
+                              ×
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="search-section-group">
+                    <p className="search-section-label">Suggested</p>
+                    <div className="search-suggestion-list">
+                      {searchSuggestions.map((result) => (
+                        <button
+                          key={`suggested-${result.label}`}
+                          type="button"
+                          className="search-suggestion"
+                          onClick={() => applySearchTerm(result.label, result)}
+                        >
+                          {result.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {search && (
+                searchResults.length === 0 ? (
+                  <>
+                    <p>No matches found for “{search}”.</p>
+                    <div className="search-section-group compact">
+                      <p className="search-section-label">Try one of these</p>
+                      <div className="search-suggestion-list">
+                        {searchSuggestions.slice(0, 4).map((result) => (
+                          <button
+                            key={`empty-${result.label}`}
+                            type="button"
+                            className="search-suggestion"
+                            onClick={() => applySearchTerm(result.label, result)}
+                          >
+                            {result.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  searchResults.map((result) => (
+                    <Link
+                      key={`${result.type}-${result.label}`}
+                      to={result.type === 'Category' ? `/${result.slug}` : `/tutorials/${result.slug}`}
+                      className="search-result-item"
+                      onClick={() => {
+                        setRecentSearches(saveRecentSearch(result.label))
+                        setSearch('')
+                        setMobileSearchOpen(false)
+                      }}
+                    >
+                      <span>{result.type}</span>
+                      <strong>{result.label}</strong>
+                    </Link>
+                  ))
+                )
               )}
             </div>
           </div>
