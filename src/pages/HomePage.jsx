@@ -100,7 +100,6 @@ export default function HomePage() {
         <div className="video-modal-backdrop" role="presentation" onClick={() => setVideoOpen(false)}>
           <div className="video-modal" role="dialog" aria-modal="true" aria-label="Tutorial completion video" onClick={(event) => event.stopPropagation()}>
             <div className="video-modal-header">
-              <h3>Finish Tutorial</h3>
               <button className="text-preview-close" type="button" aria-label="Close video" onClick={() => setVideoOpen(false)}>×</button>
             </div>
             <video
