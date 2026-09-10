@@ -216,12 +216,21 @@ export default function TutorialDetailPage() {
               </Link>
             </>
           ) : (
-            <div>
-              <span className="eyebrow">Tutorial path complete</span>
-              <h2>Nice work — you finished the core path.</h2>
-              <p>Return to the tutorials page to explore the next deployment and developer guides.</p>
-              <Link className="secondary-btn" to="/tutorials">Explore more tutorials</Link>
-            </div>
+            <>
+              <div>
+                <span className="eyebrow">Tutorial path complete</span>
+                <h2>Nice work — you finished the core path.</h2>
+                <p>Return to the tutorials page to explore the next deployment and developer guides.</p>
+                <Link className="secondary-btn" to="/tutorials">Explore more tutorials</Link>
+              </div>
+              <Link
+                className="primary-btn"
+                to="/"
+                onClick={() => window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank', 'noopener,noreferrer')}
+              >
+                Finish Tutorial
+              </Link>
+            </>
           )}
         </section>
       )}
