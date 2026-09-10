@@ -130,10 +130,7 @@ export default function TutorialDetailPage() {
               <ul className="checklist">
                 {section.checklist.map((item) => (
                   <li key={item}>
-                    <label>
-                      <input type="checkbox" />
-                      <span>{item}</span>
-                    </label>
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>
