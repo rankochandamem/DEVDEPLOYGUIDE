@@ -821,8 +821,6 @@ button {
 }
 
 .pipeline-card {
-  position: relative;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -835,20 +833,7 @@ button {
   min-width: min(280px, 100%);
 }
 
-.pipeline-card::before {
-  position: absolute;
-  inset: 0.8rem;
-  border-radius: 1rem;
-  background: url('/media/logo1.png') center / cover no-repeat;
-  content: '';
-  filter: blur(24px) saturate(125%);
-  opacity: 0.55;
-  transform: scale(1.08);
-}
-
 .pipeline-image {
-  position: relative;
-  z-index: 1;
   display: block;
   width: min(100%, 680px);
   max-height: 360px;
