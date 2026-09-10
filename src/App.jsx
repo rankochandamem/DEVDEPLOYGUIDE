@@ -15,6 +15,7 @@ import ChallengesPage from './pages/ChallengesPage'
 import ErrorLabPage from './pages/ErrorLabPage'
 import ToolsPage from './pages/ToolsPage'
 import ImageLibraryPage from './pages/ImageLibraryPage'
+import ReportsPage from './pages/ReportsPage'
 import TutorialBuilderPage from './pages/TutorialBuilderPage'
 import { readStorage, writeStorage } from './services/storageService'
 import { searchContent } from './services/searchService'
@@ -156,6 +157,7 @@ function App() {
         <Route path="/error-lab" element={<ErrorLabPage />} />
         <Route path="/tools" element={<ToolsPage />} />
         <Route path="/image-library" element={<ImageLibraryPage />} />
+        <Route path="/reports" element={<ReportsPage />} />
         <Route path="/tutorial-builder" element={<TutorialBuilderPage />} />
         <Route path="*" element={<HomePage />} />
       </Routes>

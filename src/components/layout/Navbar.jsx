@@ -43,6 +43,7 @@ export default function Navbar({ theme, onToggleTheme, collapsed, onToggleSideba
         <NavLink to="/bookmarks" data-tooltip="Bookmarks"><span className="nav-icon">☆</span><span className="nav-label">Bookmarks</span></NavLink>
         <NavLink to="/error-lab" data-tooltip="Error Lab"><span className="nav-icon">!</span><span className="nav-label">Error Lab</span></NavLink>
         <NavLink to="/changelog" data-tooltip="Changelog"><span className="nav-icon">◷</span><span className="nav-label">Changelog</span></NavLink>
+        <NavLink to="/reports" data-tooltip="Reports"><span className="nav-icon">⚑</span><span className="nav-label">Reports</span></NavLink>
         </nav>
 
         <div className="topbar-actions">
