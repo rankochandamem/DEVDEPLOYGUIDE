@@ -564,19 +564,6 @@ export const tutorialData = [
       {
         title: 'Create a project and service',
         content: ['Click +Create new project and enter a project name, for example, my-devdeploy-project. Click +Create new service, then click Web Services and select your project.'],
-        media: [
-          {
-            type: 'image',
-            title: 'Render web service setup',
-            caption: 'Figure 2 — Create a Render Web Service',
-            description: 'Create a project, add a service, choose Web Services, and select your project.',
-            altText: 'Render web service setup screen',
-            image: {
-              url: '/media/render-web-service.svg',
-            },
-            stepNumber: '2',
-          },
-        ],
         checklist: ['Click +Create new project', 'Enter a project name', 'Click +Create new service', 'Click Web Services', 'Select your project'],
       },
       {
