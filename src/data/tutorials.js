@@ -550,26 +550,26 @@ export const tutorialData = [
     categoryId: 'deployment',
     difficulty: 'Beginner',
     estimatedTime: '20 minutes',
-    lessons: 8,
+    lessons: 9,
     description: 'Connect your GitHub repository to Render and deploy a working app with a public URL.',
     prerequisites: ['git-installation', 'github-basics'],
     status: 'not-started',
     externalLinks: [{ label: 'Render', url: 'https://render.com/' }],
     sections: [
       {
-        title: 'Verify the repository',
-        content: ['Make sure your project is already on GitHub and includes the files needed to run it, such as package.json, requirements.txt, or a Dockerfile.'],
-        checklist: ['Repository is visible on GitHub', 'Project files are present', 'Dependencies are ready'],
+        title: 'Log in and open the dashboard',
+        content: ['In Render, log in with your GitHub account and go to the dashboard.'],
+        checklist: ['Log in with GitHub', 'Open the Render dashboard'],
       },
       {
-        title: 'Create the Render service',
-        content: ['Open Render, sign in, and create a new Web Service connected to your GitHub repository.'],
+        title: 'Create a project and service',
+        content: ['Click +Create new project and enter a project name, for example, my-devdeploy-project. Click +Create new service, then click Web Services and select your project.'],
         media: [
           {
             type: 'image',
             title: 'Render web service setup',
             caption: 'Figure 2 — Create a Render Web Service',
-            description: 'Select New +, choose Web Service, and connect the GitHub repository.',
+            description: 'Create a project, add a service, choose Web Services, and select your project.',
             altText: 'Render web service setup screen',
             image: {
               url: '/media/render-web-service.svg',
@@ -577,25 +577,19 @@ export const tutorialData = [
             stepNumber: '2',
           },
         ],
-        checklist: ['Click New +', 'Choose Web Service', 'Connect a repository', 'Select the project'],
+        checklist: ['Click +Create new project', 'Enter a project name', 'Click +Create new service', 'Click Web Services', 'Select your project'],
       },
       {
-        title: 'Configure build and start commands',
-        content: ['Choose the runtime, branch, build command, and start command matching your app type.'],
+        title: 'Configure and deploy the service',
+        content: ['Add a service name, for example, my-devdeploy-web. Scroll down and add the Start Command, for example, npm run dev. Select $0 / month, 0.1 CPU, 512 MB RAM, Free. If your app uses an API, add each Environment Variable name and value, for example, API_URL and https://api.example.com, then click Deploy web service.'],
         commands: [
-          { label: 'Node.js frontend', code: 'npm install && npm run build\nnpm start', explanation: 'Installs dependencies, builds the app, and runs it.', output: 'npm install\nadded 182 packages, and audited 236 packages in 3s\nnpm run build\nvite build\n✓ built in 432ms\nnpm start\nready on http://localhost:3000' },
-          { label: 'Express app', code: 'npm install\nnpm start', explanation: 'Common configuration for Express applications.', output: 'npm install\nadded 36 packages in 2s\nnpm start\nServer started on port 3000' },
-          { label: 'Flask app', code: 'pip install -r requirements.txt\ngunicorn app:app', explanation: 'Installs Python dependencies and starts the Flask service.', output: 'pip install -r requirements.txt\nSuccessfully installed flask gunicorn\ngunicorn app:app\nListening on port 8000' },
+          { label: 'Start Command', code: 'npm run dev', explanation: 'Tells Render how to start the application.' },
         ],
-      },
-      {
-        title: 'Environment variables',
-        content: ['Add secrets such as API keys, DB URLs, and configuration values through Render instead of storing them in GitHub.'],
-        checklist: ['Open Environment Variables', 'Add each required value', 'Keep secrets out of your repository'],
+        checklist: ['Add a service name', 'Add the Start Command', 'Select $0 / month, 0.1 CPU, 512 MB RAM, Free', 'Add API environment variables if needed', 'Click Deploy web service', 'Click Manual Deploy in the top right'],
       },
     ],
-    tips: ['Use the correct branch such as main.', 'Check deploy logs if the app fails to build or start.'],
-    warnings: ['Your app must listen on PORT or Render may not serve it successfully.'],
+    tips: ['Add API variables in Render Environment Variables.', 'Keep private passwords and API keys out of GitHub.'],
+    warnings: ['Use the Start Command required by your app.'],
     troubleshooting: [
       {
         title: 'Render build failed',

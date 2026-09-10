@@ -1,83 +1,20 @@
 Step 3:
 
-How to Connect GitHub to Render
+# Deploy GitHub to Render
 
-1. Confirm that your project is already on GitHub.
-   - Open your GitHub repository.
-   - Make sure the code files are visible.
-   - Make sure your repository includes the files Render needs to build and run the app, such as package.json, requirements.txt, or a Dockerfile.
+1. In Render, log in with your GitHub account.
+2. Go to the dashboard.
+3. Click +Create new project.
+4. Enter your project name, for example: my-devdeploy-project.
+5. Click +Create new service.
+6. Click Web Services.
+7. Select your project.
+8. Configure and deploy the service:
+   - Add a service name, for example: my-devdeploy-web.
+   - Scroll down and add the Start Command, for example: npm run dev.
+   - Select $0 / month, 0.1 CPU, 512 MB RAM, Free.
+   - Scroll down and add Environment Variables if your app uses an API. Enter each variable name and value, for example: API_URL, https://api.example.com.
+   - Click Deploy web service.
+9. After deployment, click Manual Deploy in the top right.
 
-2. Open Render:
-   https://render.com
-
-3. Sign up or log in.
-   - Choose Continue with GitHub if available.
-   - Authorize Render to access your GitHub account.
-
-4. Create a new service:
-   - Click New +.
-   - Choose Web Service.
-   - Select Connect a repository.
-   - Pick your GitHub repository.
-
-5. Configure the Render service:
-   - Name: choose a service name.
-   - Region: choose a deployment region close to your users.
-   - Branch: usually main.
-   - Runtime: choose the language or framework used by your project.
-   - Build Command: tell Render how to install dependencies and build the app.
-   - Start Command: tell Render how to run the app.
-   - Instance Type: choose Free when available.
-
-Common examples:
-
-Node.js frontend or full-stack app:
-   Build Command: npm install && npm run build
-   Start Command: npm start
-
-Node.js Express app:
-   Build Command: npm install
-   Start Command: npm start
-
-Python Flask app:
-   Build Command: pip install -r requirements.txt
-   Start Command: gunicorn app:app
-
-Python Django app:
-   Build Command: pip install -r requirements.txt && python manage.py collectstatic --no-input
-   Start Command: gunicorn projectname.wsgi
-
-6. Add environment variables if the app needs them.
-   - Open the Environment Variables section in Render.
-   - Add variables the app uses locally.
-   - Do not commit private passwords or API keys into your GitHub repository.
-
-7. Click Create Web Service.
-
-8. Render will automatically:
-   - Clone your code from GitHub.
-   - Install dependencies.
-   - Build the application.
-   - Start the application.
-   - Give you a live public URL.
-
-9. Test the deployed app by opening the Render URL.
-
-When you update the project:
-
-1. Make changes locally.
-2. Upload the changes to GitHub:
-
-   git add .
-   git commit -m "Update application"
-   git push
-
-3. Render automatically detects the new commit and deploys the update.
-
-Troubleshooting:
-- Check the deploy logs in Render.
-- Make sure the Build Command is correct.
-- Make sure the Start Command is correct.
-- Make sure the application listens on the PORT environment variable.
-- Make sure all required environment variables are added in Render.
-- Check that the correct GitHub branch is selected.
+Keep private passwords and API keys in Render Environment Variables instead of committing them to GitHub.
