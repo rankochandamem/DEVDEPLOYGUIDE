@@ -1,7 +1,5 @@
 Step 3:
 
-# Deploy GitHub to Render
-
 1. In Render, log in with your GitHub account.
 2. Go to the dashboard.
 3. Click +Create new project.
