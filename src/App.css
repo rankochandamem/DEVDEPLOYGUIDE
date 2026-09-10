@@ -658,6 +658,46 @@ button {
   white-space: pre-wrap;
 }
 
+.video-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(2, 6, 23, 0.72);
+}
+
+.video-modal {
+  width: min(980px, 100%);
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 1rem;
+  background: var(--card-bg);
+  box-shadow: 0 24px 70px rgba(2, 6, 23, 0.45);
+}
+
+.video-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.video-modal-header h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.video-player {
+  display: block;
+  width: 100%;
+  max-height: 78vh;
+  background: #000;
+}
+
 .pipeline-card {
   display: flex;
   align-items: center;
