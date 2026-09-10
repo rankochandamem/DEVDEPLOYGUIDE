@@ -680,7 +680,7 @@ button {
 .video-modal-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 1rem;
   padding: 0.8rem 1rem;
   border-bottom: 1px solid rgba(148, 163, 184, 0.2);
