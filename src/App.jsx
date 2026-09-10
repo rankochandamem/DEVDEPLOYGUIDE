@@ -27,12 +27,19 @@ function App() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false)
   const [siteLoading, setSiteLoading] = useState(true)
-  const [showUpdateLoader, setShowUpdateLoader] = useState(false)
+  const [showRefreshLoader, setShowRefreshLoader] = useState(false)
 
   useEffect(() => {
     const siteTimeoutId = window.setTimeout(() => setSiteLoading(false), 700)
     return () => window.clearTimeout(siteTimeoutId)
   }, [])
+
+  const handleRefreshWebsite = () => {
+    setShowRefreshLoader(true)
+    window.setTimeout(() => {
+      window.location.reload()
+    }, 350)
+  }
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
@@ -76,7 +83,7 @@ function App() {
 
   return (
     <div className={`app-shell${sidebarCollapsed ? ' sidebar-collapsed' : ''}`}>
-      {siteLoading && !showUpdateLoader && (
+      {siteLoading && !showRefreshLoader && (
         <div className="site-loading-loader" role="status" aria-live="polite" aria-label="Loading website">
           <div className="site-loading-loader-inner">
             <div className="site-loading-spinner" aria-hidden="true" />
@@ -85,17 +92,18 @@ function App() {
         </div>
       )}
 
-      {showUpdateLoader && (
-        <div className="site-update-loader" role="status" aria-live="polite" aria-label="Updating website">
+      {showRefreshLoader && (
+        <div className="site-update-loader" role="status" aria-live="polite" aria-label="Website is refreshing">
           <div className="site-update-loader-inner">
             <div className="site-update-spinner" aria-hidden="true" />
-            <p>Updating website...</p>
+            <p>Website is refreshing...</p>
           </div>
         </div>
       )}
       <ScrollToTop />
       <Navbar
         theme={theme}
+        onRefreshWebsite={handleRefreshWebsite}
         onToggleTheme={() => setTheme((current) => (current === 'light' ? 'dark' : 'light'))}
         collapsed={sidebarCollapsed}
         onToggleSidebar={() => setSidebarCollapsed((current) => !current)}
