@@ -21,6 +21,7 @@ import { readStorage, writeStorage } from './services/storageService'
 import { searchContent } from './services/searchService'
 
 function App() {
+  const { pathname } = useLocation()
   const initialTheme = readStorage().theme || 'dark'
   const [theme, setTheme] = useState(initialTheme)
   const [search, setSearch] = useState('')
@@ -81,11 +82,12 @@ function App() {
   }, [])
 
   const searchResults = useMemo(() => searchContent(search), [search])
+  const isNotFoundPage = !isKnownRoute(pathname)
 
   return (
-    <div className={`app-shell${sidebarCollapsed ? ' sidebar-collapsed' : ''}`}>
+    <div className={`app-shell${sidebarCollapsed ? ' sidebar-collapsed' : ''}${isNotFoundPage ? ' standalone-error-shell' : ''}`}>
       <ScrollToTop />
-      <Navbar
+      {!isNotFoundPage && <Navbar
         theme={theme}
         onRefreshWebsite={handleRefreshWebsite}
         onToggleTheme={() => setTheme((current) => (current === 'light' ? 'dark' : 'light'))}
@@ -102,9 +104,9 @@ function App() {
             requestAnimationFrame(() => document.querySelector('.top-search-box input')?.focus())
           }
         }}
-      />
+      />}
 
-      <div className={`content-toolbar${mobileSearchOpen ? ' mobile-search-open' : ''}`}>
+      {!isNotFoundPage && <div className={`content-toolbar${mobileSearchOpen ? ' mobile-search-open' : ''}`}>
         <div className="top-search-box">
           <span aria-hidden="true">⌕</span>
           <input
@@ -140,7 +142,7 @@ function App() {
             </div>
           </div>
         )}
-      </div>
+      </div>}
 
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -159,12 +161,37 @@ function App() {
         <Route path="/image-library" element={<ImageLibraryPage />} />
         <Route path="/reports" element={<ReportsPage />} />
         <Route path="/tutorial-builder" element={<TutorialBuilderPage />} />
-        <Route path="*" element={<HomePage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
 
-      <BackToTopButton />
-      <footer className="page-footer">DevDeploy Guide v1.1.0</footer>
+      {!isNotFoundPage && <BackToTopButton />}
+      {!isNotFoundPage && <footer className="page-footer">DevDeploy Guide v1.1.0</footer>}
     </div>
+  )
+}
+
+function isKnownRoute(pathname) {
+  return [
+    /^\/$/,
+    /^\/tutorials(?:\/[^/]+)?$/,
+    /^\/categories(?:\/[^/]+)?$/,
+    /^\/(bookmarks|resources|troubleshooting|changelog|workspace|challenges|error-lab|tools|image-library|reports|tutorial-builder)$/,
+  ].some((pattern) => pattern.test(pathname))
+}
+
+function NotFoundPage() {
+  return (
+    <main className="not-found-page">
+      <section className="not-found-card" aria-labelledby="not-found-title">
+        <span className="eyebrow">Error 404</span>
+        <h1 id="not-found-title">Page not found</h1>
+        <p>The link you followed does not point to a page that exists or is currently available.</p>
+        <Link className="page-back-button not-found-button" to="/">
+          <span aria-hidden="true">←</span>
+          <span className="page-back-label">Back</span>
+        </Link>
+      </section>
+    </main>
   )
 }
 
