@@ -2972,26 +2972,38 @@ textarea {
 
   .topbar .main-nav a,
   .topbar.sidebar-collapsed .main-nav a {
-    padding: 0.8rem 0.75rem;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.8rem 0.8rem;
     text-align: left;
+    border-radius: 0.75rem;
+    font-size: 1.05rem;
+    line-height: 1.3;
   }
 
   .topbar .nav-icon,
   .topbar.sidebar-collapsed .nav-icon {
-    margin-right: 0.45rem;
+    width: 1.1rem;
+    margin-right: 0.55rem;
+    text-align: center;
   }
 
   .topbar .topbar-actions,
   .topbar.sidebar-collapsed .topbar-actions {
     flex-direction: column;
-    width: auto;
+    align-items: stretch;
+    width: 100%;
     margin-top: auto;
+    gap: 0.6rem;
   }
 
   .topbar .theme-toggle,
   .topbar.sidebar-collapsed .theme-toggle {
     width: 100%;
     min-height: var(--control-height);
+    justify-content: center;
+    padding: 0.9rem 1rem;
   }
 
   .mobile-nav-backdrop.is-open {
