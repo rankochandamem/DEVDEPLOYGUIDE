@@ -21,7 +21,6 @@ export default function TutorialDetailPage() {
   const tutorial = tutorials.find((item) => item.slug === slug)
   const storage = readStorage()
   const [isBookmarked, setIsBookmarked] = useState(storage.bookmarks?.includes(tutorial?.id) || false)
-  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false)
 
   if (!tutorial) {
     return (
@@ -227,48 +226,16 @@ export default function TutorialDetailPage() {
               <button
                 type="button"
                 className="primary-btn"
-                onClick={() => setIsVideoModalOpen(true)}
+                onClick={() => {
+                  sessionStorage.setItem('showFinishVideo', 'true')
+                  navigate('/')
+                }}
               >
                 Finish Tutorial
               </button>
             </>
           )}
         </section>
-      )}
-
-      {isVideoModalOpen && (
-        <div className="video-modal-backdrop" role="presentation" onClick={() => setIsVideoModalOpen(false)}>
-          <div
-            className="video-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Tutorial completion video"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="video-modal-header">
-              <h3>Finish Tutorial</h3>
-              <button
-                type="button"
-                className="text-preview-close"
-                aria-label="Close video"
-                onClick={() => setIsVideoModalOpen(false)}
-              >
-                ×
-              </button>
-            </div>
-            <video
-              className="video-player"
-              src="/media/Rick%20Astley%20-%20Never%20Gonna%20Give%20You%20Up%20(Official%20Video)%20(4K%20Remaster).mp4"
-              controls
-              autoPlay
-              playsInline
-              onEnded={() => {
-                setIsVideoModalOpen(false)
-                navigate('/')
-              }}
-            />
-          </div>
-        </div>
       )}
     </main>
   )

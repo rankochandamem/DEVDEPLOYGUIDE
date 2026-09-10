@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { quickLinks } from '../data/tutorials'
 import TutorialCard from '../components/tutorial/TutorialCard'
@@ -18,7 +18,16 @@ export default function HomePage() {
   const state = readStorage()
   const audioRef = useRef(null)
   const [bookmarks, setBookmarks] = useState(getBookmarks())
+  const [videoOpen, setVideoOpen] = useState(false)
   const [learningPathUnlocks] = useState(getLearningPathUnlocks())
+
+  useEffect(() => {
+    const shouldOpen = sessionStorage.getItem('showFinishVideo') === 'true'
+    if (shouldOpen) {
+      setVideoOpen(true)
+      sessionStorage.removeItem('showFinishVideo')
+    }
+  }, [])
   const [featured] = useState(() => shuffle(getAllTutorials()).slice(0, 3))
   const [recommended] = useState(() => shuffle(quickLinks))
   const nextLearningStep = [
@@ -86,6 +95,24 @@ export default function HomePage() {
           <audio ref={audioRef} src="/media/voice.mpeg" preload="auto" />
         </div>
       </section>
+
+      {videoOpen && (
+        <div className="video-modal-backdrop" role="presentation" onClick={() => setVideoOpen(false)}>
+          <div className="video-modal" role="dialog" aria-modal="true" aria-label="Tutorial completion video" onClick={(event) => event.stopPropagation()}>
+            <div className="video-modal-header">
+              <h3>Finish Tutorial</h3>
+              <button className="text-preview-close" type="button" aria-label="Close video" onClick={() => setVideoOpen(false)}>×</button>
+            </div>
+            <video
+              className="video-player"
+              src="/media/Rick%20Astley%20-%20Never%20Gonna%20Give%20You%20Up%20(Official%20Video)%20(4K%20Remaster).mp4"
+              controls
+              autoPlay
+              playsInline
+            />
+          </div>
+        </div>
+      )}
 
       <section className="dashboard-grid">
         <div className="panel">

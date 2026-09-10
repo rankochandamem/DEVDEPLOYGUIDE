@@ -694,8 +694,9 @@ button {
 .video-player {
   display: block;
   width: 100%;
-  max-height: 78vh;
+  max-height: 70vh;
   background: #000;
+  border-radius: 0 0 0.8rem 0.8rem;
 }
 
 .pipeline-card {
