@@ -128,7 +128,14 @@ export default function TutorialDetailPage() {
 
             {section.checklist && (
               <ul className="checklist">
-                {section.checklist.map((item) => <li key={item}>☐ {item}</li>)}
+                {section.checklist.map((item) => (
+                  <li key={item}>
+                    <label>
+                      <input type="checkbox" />
+                      <span>{item}</span>
+                    </label>
+                  </li>
+                ))}
               </ul>
             )}
             {section.commands?.map((command) => (
