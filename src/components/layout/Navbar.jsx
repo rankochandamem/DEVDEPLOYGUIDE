@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 
-export default function Navbar({ theme, onToggleTheme, collapsed, onToggleSidebar, mobileOpen, onToggleMobile, onCloseMobile, mobileSearchOpen, onToggleSearch, onRefreshWebsite }) {
+export default function Navbar({ theme, onToggleTheme, collapsed, onToggleSidebar, mobileOpen, onToggleMobile, onCloseMobile, mobileSearchOpen, onToggleSearch }) {
   return (
     <>
       <div className="mobile-header">
@@ -46,9 +46,6 @@ export default function Navbar({ theme, onToggleTheme, collapsed, onToggleSideba
         </nav>
 
         <div className="topbar-actions">
-          <button type="button" className="refresh-button" onClick={onRefreshWebsite} aria-label="Refresh website">
-            ↻
-          </button>
           <button type="button" className="theme-toggle" onClick={onToggleTheme}>
             <span className="theme-icon" aria-hidden="true">{theme === 'light' ? '🌙' : '☀'}</span>
             <span className="theme-label">{theme === 'light' ? 'Dark' : 'Light'}</span>

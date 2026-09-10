@@ -83,23 +83,6 @@ function App() {
 
   return (
     <div className={`app-shell${sidebarCollapsed ? ' sidebar-collapsed' : ''}`}>
-      {siteLoading && !showRefreshLoader && (
-        <div className="site-loading-loader" role="status" aria-live="polite" aria-label="Loading website">
-          <div className="site-loading-loader-inner">
-            <div className="site-loading-spinner" aria-hidden="true" />
-            <p>Loading website...</p>
-          </div>
-        </div>
-      )}
-
-      {showRefreshLoader && (
-        <div className="site-update-loader" role="status" aria-live="polite" aria-label="Website is refreshing">
-          <div className="site-update-loader-inner">
-            <div className="site-update-spinner" aria-hidden="true" />
-            <p>Website is refreshing...</p>
-          </div>
-        </div>
-      )}
       <ScrollToTop />
       <Navbar
         theme={theme}
