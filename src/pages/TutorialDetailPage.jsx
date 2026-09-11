@@ -153,6 +153,46 @@ export default function TutorialDetailPage() {
         ))}
       </div>
 
+      {currentStepIndex >= 0 && openedFromLearningPath && (
+        <section className="next-learning-panel">
+          {nextStep ? (
+            <>
+              <div>
+                <span className="eyebrow">Continue the tutorial</span>
+                <h2>Next: {nextStep.label} — {nextStep.title}</h2>
+                <p>Move to the next step in the Git → GitHub → Render learning path.</p>
+              </div>
+              <Link
+                className="primary-btn"
+                to={`/tutorials/${nextStep.slug}?from=learning-path`}
+                onClick={() => unlockLearningStep(nextStep.slug)}
+              >
+                Open next step →
+              </Link>
+            </>
+          ) : (
+            <>
+              <div>
+                <span className="eyebrow">Tutorial path complete</span>
+                <h2>Nice work — you finished the core path.</h2>
+                <p>Return to the tutorials page to explore the next deployment and developer guides.</p>
+                <Link className="secondary-btn" to="/tutorials">Explore more tutorials</Link>
+              </div>
+              <button
+                type="button"
+                className="primary-btn"
+                onClick={() => {
+                  sessionStorage.setItem('showFinishVideo', 'true')
+                  navigate('/')
+                }}
+              >
+                Finish Tutorial
+              </button>
+            </>
+          )}
+        </section>
+      )}
+
       {tutorial.tips && (
         <section className="panel">
           <h2>Tips</h2>
@@ -195,45 +235,6 @@ export default function TutorialDetailPage() {
         </div>
       </section>
 
-      {currentStepIndex >= 0 && openedFromLearningPath && (
-        <section className="next-learning-panel">
-          {nextStep ? (
-            <>
-              <div>
-                <span className="eyebrow">Continue the tutorial</span>
-                <h2>Next: {nextStep.label} — {nextStep.title}</h2>
-                <p>Move to the next step in the Git → GitHub → Render learning path.</p>
-              </div>
-              <Link
-                className="primary-btn"
-                to={`/tutorials/${nextStep.slug}?from=learning-path`}
-                onClick={() => unlockLearningStep(nextStep.slug)}
-              >
-                Open next step →
-              </Link>
-            </>
-          ) : (
-            <>
-              <div>
-                <span className="eyebrow">Tutorial path complete</span>
-                <h2>Nice work — you finished the core path.</h2>
-                <p>Return to the tutorials page to explore the next deployment and developer guides.</p>
-                <Link className="secondary-btn" to="/tutorials">Explore more tutorials</Link>
-              </div>
-              <button
-                type="button"
-                className="primary-btn"
-                onClick={() => {
-                  sessionStorage.setItem('showFinishVideo', 'true')
-                  navigate('/')
-                }}
-              >
-                Finish Tutorial
-              </button>
-            </>
-          )}
-        </section>
-      )}
     </main>
   )
 }
